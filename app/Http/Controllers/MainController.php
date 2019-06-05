@@ -9,7 +9,14 @@ class MainController extends Controller
 {
     public function index_page(){
 
-        $id = Auth::user()->id;
+        if($user = Auth::user())
+        {
+            $id = Auth::user()->id;
+        }
+        else if(Auth::guest())
+        {
+            $id = 'null';
+        }
         //dd($id);
 
         return view('index_page',[

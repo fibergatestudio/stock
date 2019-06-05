@@ -20,6 +20,7 @@ Route::get('/', 'MainController@index_page');
 
 Auth::routes();
 
+//Регистрация (?)
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Аккаунт
