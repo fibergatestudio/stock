@@ -77,6 +77,7 @@ class MainController extends Controller
             'id' => $id,
         ]);
     }
+    
 
     //Продажи (Мои Продажи)
     public function account_sales($id){

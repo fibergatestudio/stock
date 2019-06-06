@@ -32,12 +32,12 @@
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> <i class="fas fa-search"></i>
                 </form>
                 <div class="user">
+
+                    @guest 
+                    @else
                     <div class="block-photo-user">
                         <img src="{{ url('images/2.png') }}" alt="">
                     </div>
-
-                    @guest 
-                    @else 
                     <h3 class="name-user">{{ Auth::user()->name }} </h3>
                     <a  data-toggle="collapse" href="#collapse-menu" role="button" aria-expanded="false" aria-controls="collapse-menu"><i class="fas fa-sort-down"></i></a>
                     @endguest
@@ -80,10 +80,10 @@
 
                 </div>
                 <div class="right-menu">
-                    <a href="admin-message.html"><i class="far fa-envelope"></i></a>
-                    <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#"><i class="fas fa-heart"></i></a>
-                    <a href="admin-shopping-basket.html"><i class="fas fa-shopping-basket"></i></a>
+                    <a href="{{ url('account/' . $id . '/messages') }}"><i class="far fa-envelope"></i></a>
+                    <a href="{{ url('account/' . $id . '/messages') }}"><i class="fas fa-bell"></i></a>
+                    <a href="{{ url('account/' . $id . '/favorites') }}"><i class="fas fa-heart"></i></a>
+                    <a href="{{ url('account/' . $id . '/cart') }}"><i class="fas fa-shopping-basket"></i></a>
                 </div>
             </div>
         </div>
