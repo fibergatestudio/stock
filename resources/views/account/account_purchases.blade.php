@@ -1,35 +1,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex-center position-ref full-height mx-5 mt-4">
-    <div class="content">
-        <h1>My Purchases</h1>
-            <table class="table table-striped table-hover mx-auto">
-                <thead>
-                    <tr>
-                        <th>Purchase Date</th>
-                        <th></th>{{-- Фото? --}}
-                        <th>Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="height: 100px; background-color: wheat;" valign="middle"> 
-                        <td>
-                            21 june 2019
-                        </td>
-                        <td>
-                            <div class="card-img-top" style="height: 100px; background-color: lavenderblush;"></div>
-                        </td>
-                        <td>
-                            Information
-                        </td>
-                        <td>
-                            187.00$
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="main buy">
+    <div class="container">
+        <h2 class="title-items bold-700">Мои покупки</h2>
+        <ul class="list-item-2">
+            <li><div>Дата продажи</div><div>Название</div><div>Цена</div></li>
+            <li class="item-2">
+                <span class="data-item-2">21 июнь 2015</span>
+                <div class="img-item-2"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                <div class="text-item-2">
+                    <h3 class="title-items-2 bold-700">Giving information on its origins</h3><br/>
+                    <p>Giving information on its origins information on its origins information on its origins information on its origins information on its origins</p><br/>
+                    <span>Имя продавца</span>
+                </div>
+                <h5 class="item-price bold-700">187.00$</h5>
+            </li>
+            <li class="item-2">
+                <span class="data-item-2">21 июнь 2015</span>
+                <div class="img-item-2"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                <div class="text-item-2">
+                    <h3 class="title-items-2 bold-700">Giving information on its origins</h3><br/>
+                    <p>Giving information on its origins information on its origins information on its origins information on its origins information on its origins</p><br/>
+                    <span>Имя продавца</span>
+                </div>
+                <h5 class="item-price bold-700">400.00$</h5>
+            </li>
+            <li class="item-2">
+                <span class="data-item-2">21 июнь 2015</span>
+                <div class="img-item-2"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                <div class="text-item-2">
+                    <h3 class="title-items-2 bold-700">Giving information on its origins</h3><br/>
+                    <p>Giving information on its origins information on its origins information on its origins information on its origins information on its origins</p><br/>
+                    <span>Имя продавца</span>
+                </div>
+                <h5 class="item-price bold-700">187.00$</h5>
+            </li>
+            <li class="item-2">
+                <span class="data-item-2">21 июнь 2015</span>
+                <div class="img-item-2"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                <div class="text-item-2">
+                    <h3 class="title-items-2 bold-700">Giving information on its origins</h3><br/>
+                    <p>Giving information on its origins information on its origins information on its origins information on its origins information on its origins</p><br/>
+                    <span>Имя продавца</span>
+                </div>
+                <h5 class="item-price bold-700">187.00$</h5>
+            </li>
+            <li class="item-2">
+                <span class="data-item-2">21 июнь 2015</span>
+                <div class="img-item-2"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                <div class="text-item-2">
+                    <h3 class="title-items-2 bold-700">Giving information on its origins</h3><br/>
+                    <p>Giving information on its origins information on its origins information on its origins information on its origins information on its origins</p><br/>
+                    <span>Имя продавца</span>
+                </div>
+                <h5 class="item-price bold-700">187.00$</h5>
+            </li>
+        </ul>
+
     </div>
 </div>
 @endsection

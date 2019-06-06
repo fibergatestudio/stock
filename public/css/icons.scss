@@ -1,0 +1,101 @@
+.icon-cupboard:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images + "cupboard.png");
+  background-repeat: no-repeat;
+}
+.icon-sales:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"sales.png");
+  background-repeat: no-repeat;
+}
+.icon-heart-outlin:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"heart-outlin.svg");
+  background-repeat: no-repeat;
+}
+.icon-shopping-basket:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"shopping-basket.svg");
+  background-repeat: no-repeat;
+}
+.icon-output:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"output.svg");
+  background-repeat: no-repeat;
+  background-color: #E5DEDE;
+}
+.icon-bag:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"bag.svg");
+  background-repeat: no-repeat;
+}
+.icon-support:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"support.svg");
+  background-repeat: no-repeat;
+}
+.icon-settings:before{
+  content: '';
+  width: 25px;
+  height: 25px;
+  display: block;
+  background-image: url($images +"settings.svg");
+  background-repeat: no-repeat;
+}
+.icon-delete:before{
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: block;
+  background-image: url($images +"delete.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.icon-refer{
+  display: flex;
+}
+.icon-refer:before{
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: block;
+  background-image: url($images +"refer.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 10px;
+}
+.icon-photo::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  display: block;
+  background-image: url($images + "photo-camera.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  bottom: -11px;
+  position: absolute;
+  left: calc(50% - 11px);
+  background-color: white;
+  border-radius: 50%;
+}

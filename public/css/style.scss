@@ -1,0 +1,133 @@
+$images: "../images/";
+@import "icons";
+@import "form";
+@import "menu-admin";
+
+a:hover{
+  text-decoration: none;
+}
+.bold-700{
+  font-weight: 700;
+}
+
+.edit,
+.info-user{
+  a{
+    .fas{
+      color: #000000;
+    }
+  }
+}
+.main{
+  .title-items{
+    //padding-top: 35px;
+    font-size: 30px;
+  }
+}
+.list-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px 0;
+  .item{
+    text-align: center;
+    width: 20%;
+    padding: 10px;
+    border: 1px solid transparent;
+    &:hover{
+      border: 1px solid #E5DEDE;
+    }
+    .img-item{
+      height: 150px;
+      img{
+        width: 150px;
+        height: 150px;
+      }
+    }
+    .text-item{
+      line-height: 25px;
+      a{
+        color: #000000;
+      }
+    }
+  }
+}
+.list-item-2{
+  padding: 15px 0;
+  &>:first-child {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .item-2{
+    display: flex;
+    text-align: center;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #E5DEDE;
+    .data-item-2{
+      padding-right: 20px;
+    }
+    .img-item-2{
+      img{
+        width: 100px;
+        height: 80px;
+      }
+    }
+    .text-item-2{
+      width: 70%;
+      text-align: left;
+      padding-left: 15px;
+    }
+  }
+  li{
+    margin: 15px 0;
+  }
+}
+.cupboard{
+  .title-items{
+    border-bottom: 1px solid  #E5DEDE;
+    padding-bottom: 20px;
+  }
+}
+
+footer{
+  background-color: #000000;
+  padding: 15px 0;
+  .footer-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    ul{
+      li{
+        line-height: 27px;
+        a{
+          color: #ffffff;
+        }
+
+      }
+    }
+  }
+}
+.basket {
+  .item-2 {
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+.badge {
+  top: -5px;
+  border-radius: 50%;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 180px;
+  height: 180px;
+  position: relative;
+  background-color: white;
+  border: 1px solid #ABA9A9;
+}
