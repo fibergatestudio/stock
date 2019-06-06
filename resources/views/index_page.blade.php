@@ -23,12 +23,34 @@
                     <div class="col-md-3 sidebar">
                         <p class="text-sidebar">
                             ПРИСОЕДИНЯЙТЕСЬ К НАМ СЕГОДНЯ! Продажа и покупка предметов гардероба секонд хенд. Перечислите то, что вы не носите и продавайте бесплатно!
-                        <br/><a href="#">Создать аккаунт</a>
+                        <br/><a href="#" data-toggle="modal" data-target="#exampleModal">Создать аккаунт</a>
                         </p>
                     </div>
                     <div class="col-md-9 content">
                         <ul class="list-item-products">
-                            <li class="item-product">
+
+                            <!-- Проверка, есть ли продажи?  -->
+                            @if ($all_products->isNotEmpty())
+                                @foreach ($all_products as $product)
+
+                                <li class="item-product">
+                                    <div class="block-item-product">
+                                        <h3><a href="#">{{ $product->seller_name }}</a></h3>
+                                        <a href="#"><img src="{{ asset('images/2.png') }}" alt=""></a>
+                                        <h4 class="price-item-product">{{ $product->price }} $ <span class="like"><i class="fas fa-heart"></i> 7</span></h4>
+                                        <h4 class="size-product"> Размер </h4>
+                                        <h3 class="name-product"><a href="#">{{ $product->description }}</a></h3>
+                                    </div>
+                                </li>
+
+                                @endforeach
+                            @else
+                                <div style="text-align: center;" class="text-item-2">
+                                    <h3 class="title-items-2 bold-700">NO SALES YET</h3><br/>
+                                </div>
+                            @endif
+
+                            <!-- <li class="item-product">
                                 <div class="block-item-product">
                                     <h3><a href="#">Имя продавца</a></h3>
                                     <a href="#"><img src="{{ asset('images/2.png') }}" alt=""></a>
@@ -99,7 +121,7 @@
                                     <h4 class="size-product"> Размер </h4>
                                     <h3 class="name-product"><a href="#">Название товара</a></h3>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

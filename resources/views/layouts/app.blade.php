@@ -27,7 +27,7 @@
 <div class="menu bg-dark">
         <div class="container">
             <div class="menu-top">
-                <h1><a href="#">STOCK</a></h1>
+                <h1><a href="{{ url('/') }}">STOCK</a></h1>
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> <i class="fas fa-search"></i>
                 </form>

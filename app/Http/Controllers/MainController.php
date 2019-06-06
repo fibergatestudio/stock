@@ -25,8 +25,17 @@ class MainController extends Controller
             $id = 'null';
         }
 
+        $all_products = DB::table('account_locker')
+        ->join('users', 'account_locker.user_id', '=', 'users.id')
+        ->select(
+            'account_locker.*',
+            'users.name AS seller_name',
+        )
+        ->get();
+
         return view('index_page',[
             'id' => $id,
+            'all_products' => $all_products,
         ]);
     }
 
