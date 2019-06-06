@@ -76,8 +76,11 @@ class MainController extends Controller
     //Шкай (Мой Шкаф)
     public function account_locker($id){
 
+        $locker = DB::table('account_locker')->where('user_id', $id)->get();
+
         return view('account.account_locker',[
             'id' => $id,
+            'account_locker' => $locker,
         ]);
     }
     
