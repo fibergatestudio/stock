@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserSettings;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
 
 class RegisterController extends Controller
 {
@@ -63,10 +65,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        //return $this->create_user_settings($data);
+
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user_settings = new UserSettings();
+        $user_settings->user_id = $user->id;
+        $user_settings->save();
+
+        return $user;
     }
+
+    // public function create_user_settings($data){
+
+    //     $user_settings = new UserSettings();
+    //     $user_settings->user_id = $data->save()->id;
+    //     $user_settings->save();
+
+    // }
 }
