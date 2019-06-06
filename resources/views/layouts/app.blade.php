@@ -79,12 +79,17 @@
                     </div>
 
                 </div>
+                @guest 
+
+                @else
+
                 <div class="right-menu">
                     <a href="{{ url('account/' . $id . '/messages') }}"><i class="far fa-envelope"></i></a>
                     <a href="{{ url('account/' . $id . '/messages') }}"><i class="fas fa-bell"></i></a>
                     <a href="{{ url('account/' . $id . '/favorites') }}"><i class="fas fa-heart"></i></a>
                     <a href="{{ url('account/' . $id . '/cart') }}"><i class="fas fa-shopping-basket"></i></a>
                 </div>
+                @endguest
             </div>
         </div>
     </div>

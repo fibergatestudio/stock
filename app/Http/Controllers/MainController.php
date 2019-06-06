@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
+use App\AccountSales;
+use App\AccountPurchases;
 
 class MainController extends Controller
 {
@@ -82,16 +85,26 @@ class MainController extends Controller
     //Продажи (Мои Продажи)
     public function account_sales($id){
 
+        //Подтяжка Продаж
+        $sales = DB::table('account_sales')->where('user_id', $id)->get();
+
         return view('account.account_sales',[
             'id' => $id,
+            'account_sales' => $sales,
         ]);
     }
 
     //Покупки (Мои Покупки)
     public function account_purchases($id){
 
+        //Подтяжка Покупок
+        $purchases = DB::table('account_purchases')->where('user_id', $id)->get();
+
+        //dd($purchases);
+
         return view('account.account_purchases',[
             'id' => $id,
+            'account_purchases' => $purchases,
         ]);
     }
 
