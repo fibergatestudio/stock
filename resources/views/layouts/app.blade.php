@@ -49,6 +49,7 @@
                     <div class="navbar-nav ml-auto col-md-2">
                         <!-- Authentication Links -->
                         @guest
+                            <!-- Логин -->
                             <li class="nav-item" >
                                 <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -58,14 +59,27 @@
                                 </li>
                             @endif
                         @else
-                        <div style="font-size: 20px;" class="col-md-1"><i style="margin-left: -20px;" class="fa fa-circle mr-3 fa-2x text-white" aria-hidden="true"></i></div>
+                        <!-- Аккаунт\Дропдаун -->
+                        <div style="font-size: 18px;" class="col-md-1"><i style="margin-left: -20px;" class="fa fa-circle mr-3 fa-2x text-white" aria-hidden="true"></i></div>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item text-dark" href="{{ url('/account/'.$id) }}">Account</a>
+                                
+                                    <!-- <a class="dropdown-item text-dark" href="{{ url('/account/'.$id) }}">Account</a> -->
+
+                                    <!-- <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/messages') }}">Messages</a> -->
+                                    <!-- <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/cart') }}">Cart</a> -->
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/locker') }}">Locker</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/sales') }}">Sales</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/purchases') }}">Purchases</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/wallet') }}">Wallet</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/favorites') }}">Favorites</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/invites') }}">Invites</a>
+                                    <a class="dropdown-item text-dark" href="{{ url('account/' . $id . '/settings') }}">Settings</a>
+                                    <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-dark" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -79,18 +93,22 @@
                             </li>
                         @endguest
                     </div>
+                    <!-- Иконки\Значки -->
+                    @guest 
+
+                    @else
                     <div class="col-md-4 row">
-                        <!-- <div class="col-md-1"><i class="fa fa-circle mr-3 fa-2x text-white" aria-hidden="true"></div> -->
-                        <div class="col-md-2"><i class="fa fa-envelope mr-3 fa-2x text-white" aria-hidden="true"></i></div>
-                        <div class="col-md-2"><i class="fa fa-cog mr-3 fa-2x text-white" aria-hidden="true"></i></div>
-                        <div class="col-md-2"><i class="fa fa-heart fa-2x text-white" aria-hidden="true"></i></div>
-                        <div class="col-md-2"><i class="fa fa-shopping-cart fa-2x text-white" aria-hidden="true"></i></div>
+                        <div class="col-md-2"><a href="{{ url('account/' . $id . '/messages') }}"><i class="fa fa-envelope mr-3 fa-2x text-white" aria-hidden="true"></i></a></div>
+                        <div class="col-md-2"><a href="{{ url('account/' . $id . '/settings') }}"><i class="fa fa-cog mr-3 fa-2x text-white" aria-hidden="true"></i></a></div>
+                        <div class="col-md-2"><a href="{{ url('account/' . $id . '/favorites') }}"><i class="fa fa-heart fa-2x text-white" aria-hidden="true"></i></a></div>
+                        <div class="col-md-2"><a href="{{ url('account/' . $id . '/cart') }}"><i class="fa fa-shopping-cart fa-2x text-white" aria-hidden="true"></i></a></div>
                     </div>
+                    @endguest
                 </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
