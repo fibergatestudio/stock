@@ -30,42 +30,31 @@
                                 </td>
                                 <td class="col-md-3">Пользователь</td><td class="col-md-5">Сообщение</td><td class="col-md-2">Дата</td>
                             </tr>
-                            <tr class="row">
-                                <td class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                        <label class="form-check-label" for="defaultCheck2"><a href="#" class="icon-delete icon"></a></label>
-                                    </div>
-                                </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
-                            <tr class="row">
-                                <td class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                                        <label class="form-check-label" for="defaultCheck3"><a href="#" class="icon-delete icon"></a></label>
-                                    </div>
-                                </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
-                            <tr class="row">
-                                <td class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                                        <label class="form-check-label" for="defaultCheck4"><a href="#" class="icon-delete icon"></a></label>
-                                    </div>
-                                </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
-                            <tr class="row">
-                                <td class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck">
-                                        <label class="form-check-label" for="defaultCheck"><a href="#" class="icon-delete icon"></a></label>
-                                    </div>
-                                </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
+                            @if ($account_sent_messages->isNotEmpty())
+                                @foreach ($account_sent_messages as $sent_message)
+                                <tr class="row">
+                                    <td class="col-md-2">
+                                            <form action="{{ url('/account/' . $id . '/messages/' . $sent_message->id . '/archive') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="message_id" value="{{ $sent_message->id }}">
+
+                                                    <div>   
+                                                        <button type="submit" class="btn icon-delete icon"></button>
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
+                                        <!-- <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                        
+                                        </div> -->
+                                    </td>
+                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $sent_message->user_id }}, {{ $sent_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $sent_message->message }}</a></td><td class="col-md-2">{{ $sent_message->date }}</td>
+                                </tr>
+                                @endforeach
+                            @else
+                            NOMESSAGES
+                            @endif
                         </table>
                     </div>
                     <div class="tab-pane fade" id="v-pills2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -79,16 +68,28 @@
                                 </td>
                                 <td class="col-md-3">Пользователь</td><td class="col-md-5">Сообщение</td><td class="col-md-2">Дата</td>
                             </tr>
-                            <tr class="row">
-                                <td class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
-                                        <label class="form-check-label" for="defaultCheck6"><a href="#" class="icon-delete icon"></a></label>
-                                    </div>
-                                </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
-                            <tr class="row">
+                            @if ($account_received_messages->isNotEmpty())
+                                @foreach ($account_received_messages as $received_message)
+                                <tr class="row">
+                                    <td class="col-md-2">
+                                        <form action="{{ url('/account/' . $id . '/messages/' . $received_message->id . '/archive') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="message_id" value="{{ $received_message->id }}">
+
+                                                    <div>   
+                                                        <button type="submit" class="btn icon-delete icon"></button>
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
+                                    </td>
+                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $received_message->user_id }}, {{ $received_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $received_message->message }}</a></td><td class="col-md-2">{{ $received_message->date }}</td>
+                                </tr>
+                                @endforeach
+                            @else
+                            NOMESSAGES
+                            @endif
+                            <!-- <tr class="row">
                                 <td class="col-md-2">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="defaultCheck7">
@@ -114,7 +115,7 @@
                                     </div>
                                 </td>
                                 <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
+                            </tr>-->
                         </table>
                     </div>
                     <div class="tab-pane fade" id="v-pills3" role="tabpanel" aria-labelledby="v-pills-messages-tab">
@@ -128,7 +129,19 @@
                                 </td>
                                 <td class="col-md-3">Пользователь</td><td class="col-md-5">Сообщение</td><td class="col-md-2">Дата</td>
                             </tr>
+
+                            @foreach ($account_archived_messages as $archived_message)
                             <tr class="row">
+                                <td class="col-md-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                        <label class="form-check-label" for="defaultCheck2"><a href="#" class="icon-delete icon"></a></label>
+                                    </div>
+                                </td>
+                                <td class="col-md-3"><a href="#" class="icon-refer">{{ $archived_message->user_id }}, {{ $archived_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $archived_message->message }}</a></td><td class="col-md-2">{{ $archived_message->date }}</td>
+                            </tr>
+                            @endforeach
+                            <!-- <tr class="row">
                                 <td class="col-md-2">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" id="defaultChecks">
@@ -163,7 +176,7 @@
                                     </div>
                                 </td>
                                 <td class="col-md-3"><a href="#" class="icon-refer">Я, Имя продавца</a></td><td class="col-md-5"><a href="#">Название объявления Текст сообщения</a></td><td class="col-md-2">5 мая, 18:46</td>
-                            </tr>
+                            </tr> -->
                         </table>
                     </div>
                 </div>

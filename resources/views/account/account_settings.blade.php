@@ -18,32 +18,38 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                         <div class="d-flex">
-                            <form action class="col">
+                            <form action="{{ url('/account/' . $id . '/settings/apply_settings') }}" method="POST" enctype="multipart/form-data" class="col">
+                                @csrf
+                                <input type="hidden" name="user_id" value="{{ $id }}">
                                 <div class="form-group">
                                     <h2 class="form-title">Контакты</h2>
                                 </div>
                                 <div class="form-group">
                                     <label for="full-name">ФИО</label>
-                                    <input type="text" class="form-control" id="full-name" placeholder="Ваше имя">
+                                    <input type="text" name="full_name" class="form-control" id="full-name" placeholder="Ваше имя" value="{{ $user_settings->full_name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Адрес електронной почты</label>
-                                    <input type="text" class="form-control" id="email" placeholder="mail@gmamil.com">
+                                    <input type="text" name="email" class="form-control" id="email" placeholder="mail@gmamil.com" value="{{ $user_settings->email }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="newphone">Текущий номер</label>
+                                    <input type="text" class="form-control" id="newphone" placeholder="No Phone Number" value="{{ $user_settings->phone_number }}" disabled>
                                 </div>
                                 <div class="phone d-flex justify-content-between">
                                     <div class="form-group w-25 mr-1">
                                         <label for="phone-code">Код страны</label>
-                                        <select type="text" class="form-control" id="phone-code">
+                                        <select type="text" name="code" class="form-control" id="phone-code">
                                             <option value="380">+ 380</option>
                                             <option value="390">+ 390</option>
                                         </select>
                                     </div>
                                     <div class="form-group w-75">
                                         <label for="phone-number">Номер телефона</label>
-                                        <input type="text" class="form-control" id="phone-number">
+                                        <input type="text" name="phone" class="form-control" id="phone-number">
                                     </div>
                                 </div>
-                                <button class="btn btn-secondary">Сохранить</button>
+                                <button type="submit" class="btn btn-secondary">Сохранить</button>
                             </form>
                             <form action class="col">
                                 <div class="form-group">
@@ -66,7 +72,9 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form action class="col">
+                            <form action="{{ url('/account/' . $id . '/settings/apply_locker_settings') }}" method="POST" enctype="multipart/form-data" class="col">
+                                @csrf
+                            <input type="hidden" name="user_id" value="{{ $id }}">
                             <div class="form-group">
                                 <h2 class="form-title">Обложка шкафа и изображение профиля</h2>
                             </div>
@@ -87,36 +95,28 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="public-name">Отображаемое имя</label>
-                                        <input type="text" class="form-control" id="public-name" placeholder="Ваше имя">
+                                        <input type="text" class="form-control" id="public-name" placeholder="Ваше имя" name="displayed_name" value="{{ $user_settings->displayed_name }}">
                                         <small class="form-text text-muted">Отображаемое имя - жто то, как будет ваше отображаться в остальной части шкафа.</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="username">Имя пользователя</label>
-                                        <input type="text" class="form-control" id="username" placeholder="@">
+                                        <input type="text" class="form-control" id="username" placeholder="@" name="">
                                         <small class="form-text text-muted">www.nn.com/www/123</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="city">Город</label>
-                                        <input type="text" class="form-control" id="city" placeholder="@">
+                                        <input type="text" class="form-control" id="city" placeholder="@" name="city" value="{{ $user_settings->city }}">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="birthday">Дата рождения</label>
                                         <div class="d-flex justify-content-between">
-                                            <label class="w-25">
-                                                <select name="birthday-day" id="birthday-day" class="form-control"></select>
-                                            </label>
-                                            <label class="w-25">
-                                                <select name="birthday-month" id="birthday-month" class="form-control"></select>
-                                            </label>
-                                            <label class="w-25">
-                                                <select name="birthday-year" id="birthday-year" class="form-control"></select>
-                                            </label>
+                                            <input type="date" class="form-control" name="birthday" value="{{ $user_settings->birthday }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <textarea name="description" id="description" rows="5" class="form-control"></textarea>
+                                        <textarea id="description" rows="5" class="form-control" name="additional_info" placeholder="{{ $user_settings->additional_info }}"></textarea>
                                         <small class="form-text text-muted">Добавте короткое описание себя или своего магазина, чтобы помочь другим узнать вас. (Не более 1500 символов.)</small>
                                     </div>
                                 </div>

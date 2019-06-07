@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\UserSettings;
+use App\AccountWallet;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -76,6 +77,10 @@ class RegisterController extends Controller
         $user_settings = new UserSettings();
         $user_settings->user_id = $user->id;
         $user_settings->save();
+
+        $user_wallet = new AccountWallet();
+        $user_wallet->user_id = $user->id;
+        $user_wallet->save();
 
         return $user;
     }

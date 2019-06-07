@@ -20,14 +20,14 @@
                             <li>
                                 <div class="block">
                                     <h3>В ожидании доходов</h3>
-                                    <h4>150 $</h4>
+                                    <h4>{{ $account_wallet->waiting_money }} $</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
                                 </div>
                             </li>
                             <li>
                                 <div class="block">
                                     <h3>Имеется в наличии</h3>
-                                    <h4>4 150 $</h4>
+                                    <h4>{{ $account_wallet->available_money }} $</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                                         Aenean commodo ligula eget dolor. Aenean massa.
                                         Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
@@ -43,38 +43,40 @@
                         </ul>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <form class="row">
+                        <form action="{{ url('/account/' . $id . '/wallet/apply_changes') }}" method="POST" class="row" enctype="multipart/form-data" class="col">
+                                @csrf
+                            <input type="hidden" name="user_id" value="{{ $id }}">
                             <div class="form-group col-md-6">
                                 <label for="name">ФИО</label>
-                                <input class="form-control" id="name">
+                                <input class="form-control" id="name" name="card_name" value="{{ $account_wallet->card_name }}">
                                 <small id="emailHelp1" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="example">Адрес</label>
-                                <input  class="form-control" id="example">
+                                <input  class="form-control" id="example" name="card_address" value="{{ $account_wallet->card_address }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="name">Номер карты</label>
-                                <input class="form-control" id="card">
+                                <input type="text" class="form-control" id="card" name="card_number" value="{{ $account_wallet->card_number }}">
                                 <small id="emailHelp3" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                 <small id="emailHelp5" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="city">Город</label>
-                                <input class="form-control" id="city">
+                                <input class="form-control" id="city" name="card_city" value="{{ $account_wallet->card_city }}">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="data">Срок действия</label>
-                                <input class="form-control" id="data" placeholder="ММ/ГГ">
+                                <input type="month" class="form-control" id="data" placeholder="ММ/ГГ" name="card_date" value="{{ $account_wallet->card_date }}">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="cvv">CVV</label>
-                                <input class="form-control" id="cvv" placeholder="***">
+                                <input class="form-control" id="cvv" placeholder="***" name="card_cvv" value="{{ $account_wallet->card_cvv }}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="country">Страна</label>
-                                <select class="form-control" id="country">
-                                    <option></option>
+                                <select class="form-control" id="country" name="card_country">
+                                    <option>TEST</option>
                                     <option></option>
                                     <option></option>
                                     <option></option>
@@ -82,12 +84,12 @@
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <button>Сохранить</button>
+                                <button type="submit">Сохранить</button>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="1">Штат</label>
-                                <select class="form-control" id="1">
-                                    <option></option>
+                                <select class="form-control" id="1" name="card_state">
+                                    <option>TEST</option>
                                     <option></option>
                                     <option></option>
                                     <option></option>

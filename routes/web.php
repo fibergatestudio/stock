@@ -29,9 +29,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Сообщения (Мои Сообщения)
     Route::get('/account/{id}/messages', 'MainController@account_messages')->middleware('auth');
+        //Сообщения - Переместить в Архив
+        Route::post('/account/{id}/messages/{message_id}/archive', 'MainController@account_messages_archive')->middleware('auth');
 
     //Настройки (Мои Настройки)
     Route::get('/account/{id}/settings', 'MainController@account_settings')->middleware('auth');
+        //Настройки - Изменить настройки
+        Route::post('/account/{id}/settings/apply_settings', 'MainController@account_settings_apply')->middleware('auth');
+        //Настройки - Изменить настройки шкафа
+        Route::post('/account/{id}/settings/apply_locker_settings', 'MainController@account_locker_settings_apply')->middleware('auth');
 
     //Избранное (?) (Избранные товары)
     Route::get('/account/{id}/favorites', 'MainController@account_favorites')->middleware('auth');
@@ -50,6 +56,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Кошелек (Мой Кошелек)
     Route::get('/account/{id}/wallet', 'MainController@account_wallet')->middleware('auth');
+        //Кошелек - Применить настройки
+        Route::post('/account/{id}/wallet/apply_changes', 'MainController@account_wallet_apply_changes')->middleware('auth');
 
     //Пригласить друзей
     Route::get('/account/{id}/invites', 'MainController@account_invites')->middleware('auth');
