@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="username">Имя пользователя</label>
-                                        <input type="text" class="form-control" id="username" placeholder="@" name="">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="@" name="" value="{{ $user->name }}">
                                         <small class="form-text text-muted">www.nn.com/www/123</small>
                                     </div>
                                     <div class="form-group">

@@ -92,11 +92,14 @@ class MainController extends Controller
             $notifications = $user_settings->notifications;
 
             $notification_exp = explode(',', $notifications);
+
+            $user = DB::table('users')->where('id', $id)->first();
             
             return view('account.account_settings',[
                 'id' => $id,
                 'user_settings' => $user_settings,
-                'notification_exp' => $notification_exp
+                'notification_exp' => $notification_exp,
+                'user' => $user
             ]);
         }
         // Применить Настройки
@@ -112,8 +115,6 @@ class MainController extends Controller
             $phone_complete = array($code, $phone);
             $phone_number = implode('', $phone_complete);
 
-            //dd($id, $phone_number);
-
             DB::table('user_settings')
             ->where('user_id', '=', $id)
             ->update([
@@ -121,6 +122,7 @@ class MainController extends Controller
                 'email' => $email,
                 'phone_number' => $phone_number
             ]);
+
 
             return back();
 
@@ -171,6 +173,15 @@ class MainController extends Controller
                 'city' => $city,
                 'birthday' => $birthday,
                 'additional_info' => $additional_info
+            ]);
+
+            $username = $request->username;
+            //dd($username);
+
+            DB::table('users')
+            ->where('id', '=', $id)
+            ->update([
+                'name' => $username,
             ]);
 
             return back();
