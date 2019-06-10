@@ -25,7 +25,7 @@ class CreateUserSettingsTable extends Migration
             $table->string('city')->nullable();
             $table->string('birthday')->nullable();
             $table->string('additional_info')->nullable();
-            $table->string('notifications')->nullable();
+            $table->string('notifications')->default('0,0')->nullable();
             $table->timestamps();
         });
     }
