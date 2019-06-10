@@ -1,6 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+</style>
 <div class="main settings">
     <div class="container">
         <div class="top-block">
@@ -78,13 +95,21 @@
                             <div class="form-group">
                                 <h2 class="form-title">Обложка шкафа и изображение профиля</h2>
                             </div>
-
-                            <div class="jumbotron background d-flex justify-content-between">
-                                <div class="avatar icon-photo d-flex justify-content-center align-items-center">
-                                    <span class="h1 p-0">N</span>
+                            <!-- <img src="{{ Storage::url($user_settings->locker_background) }}"/> -->
+                            <div style="background-image: url({{ Storage::url($user_settings->locker_background) }});" class="jumbotron background d-flex justify-content-between">
+                                <div style="position: relative; overflow: hidden; display: inline-block;" class="upload-btn-wrapper">
+                                    <div style="background-image: url({{ Storage::url($user_settings->profile_picture) }});" class="avatar icon-photo d-flex justify-content-center align-items-center">
+                                        <span class="h1 p-0">N</span>
+                                            <input style="font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0;"type="file" name="profile_picture" />
+                                    </div>
                                 </div>
                                 <div class="">
-                                    <a href="#" class="btn btn-secondary">Изменить изображение</a>
+                                    <!-- <input type="file" name="locker_background" class="form-control"></input>
+                                    <a href="#" class="btn btn-secondary">Изменить изображение</a> -->
+                                    <div style="position: relative; overflow: hidden; display: inline-block;" class="upload-btn-wrapper">
+                                        <button class="btn btn-secondary">Изменить изображение</button>
+                                        <input style="font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0;"type="file" name="locker_background" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -125,7 +150,9 @@
                         </form>
                     </div>
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                        <form action class="col">
+                        <form action="{{ url('/account/' . $id . '/settings/apply_notifications') }}" method="POST" enctype="multipart/form-data" class="col">
+                                @csrf
+                            <input type="hidden" name="user_id" value="{{ $id }}">
                             <div class="form-group">
                                 <h2 class="form-title">Уведомления по электронной почте</h2>
                             </div>
@@ -135,25 +162,33 @@
                             </p>
 
                             <div class="form-check form-group">
-                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <input class="form-check-input" type="checkbox" name="new_income" id="inlineRadio1" value="option1"                            
+                                @if($notification_exp[0] == '0')
+
+                                @else
+                                    checked
+                                @endif
+                                >
                                 <label class="form-check-label" for="inlineRadio1">
                                     <p>Новые поступления</p>
                                     <small class="form-text text-muted">Уведомления для обязательного просмотра новых поступлений.</small>
                                 </label>
                             </div>
                             <div class="form-check form-group">
-                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio2" value="option2" checked>
+                                <input class="form-check-input" type="checkbox" name="sales_discounts" id="inlineRadio2" value="option2"
+                                @if($notification_exp[1] == '0')
+
+                                @else
+                                    checked
+                                @endif
+                                >
                                 <label class="form-check-label" for="inlineRadio2">
                                     <p>Продажи и Скидки</p>
                                     <small class="form-text text-muted">Немедленный доступ к событиям продаж и специальным промо-кодам.</small>
                                 </label>
                             </div>
                             <div class="form-check form-group">
-                                <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio3" value="option3" checked>
-                                <label class="form-check-label" for="inlineRadio3">
-                                    <p>Новые поступления</p>
-                                    <small class="form-text text-muted">Уведомления для обязательного просмотра новых поступлений.</small>
-                                </label>
+                                <button class="btn btn-secondary">Сохранить</button>
                             </div>
                         </form>
                     </div>

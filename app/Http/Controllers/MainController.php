@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
+use Storage;
+use App\AccountLocker;
 use App\AccountSales;
 use App\AccountPurchases;
 use App\AccountMessages;
 use App\AccountWallet;
+use App\AccountLikes;
+
 
 class MainController extends Controller
 {
@@ -80,16 +84,22 @@ class MainController extends Controller
         }
 
     //-- НАСТРОЙКИ --//
-        //Настройки (Мои Настройки)
+        // Настройки (Мои Настройки)
         public function account_settings($id){
 
             $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            $notifications = $user_settings->notifications;
+
+            $notification_exp = explode(',', $notifications);
             
             return view('account.account_settings',[
                 'id' => $id,
-                'user_settings' => $user_settings
+                'user_settings' => $user_settings,
+                'notification_exp' => $notification_exp
             ]);
         }
+        // Применить Настройки
         public function account_settings_apply(Request $request){
 
             $id = $request->id;
@@ -115,6 +125,7 @@ class MainController extends Controller
             return back();
 
         }
+        //Применить Настройки Шкафа
         public function account_locker_settings_apply(Request $request){
 
             $id = $request->user_id;
@@ -126,6 +137,27 @@ class MainController extends Controller
             $birthday = $request->birthday;
             $additional_info = $request->additional_info;
 
+            /* Сохраняем фото */
+            //$request->profile_picture->store('public/'.$id);
+
+            $settings = DB::table('user_settings')->where('user_id', '=', $id)->first();
+
+
+            if (!empty($request->locker_background)){
+                $locker_background = $request->locker_background->store('public/storage/'.$id);
+            } else {
+                $locker_background = $settings->locker_background;
+            }
+
+
+            if (!empty($request->profile_picture)){
+                $profile_picture = $request->profile_picture->store('public/storage/'.$id.'/avatar');
+            } else{
+                $profile_picture = $settings->profile_picture;
+            }
+            
+            //dd($request->locker_background->store('public/'.$id));
+
             //dd($additional_info);
 
             //dd($additional_info);
@@ -133,6 +165,8 @@ class MainController extends Controller
             DB::table('user_settings')
             ->where('user_id', '=', $id)
             ->update([
+                'profile_picture' => $profile_picture,
+                'locker_background' => $locker_background,
                 'displayed_name' => $displayed_name,
                 'city' => $city,
                 'birthday' => $birthday,
@@ -141,13 +175,105 @@ class MainController extends Controller
 
             return back();
         }
+        public function account_lapply_notifications(Request $request){
+
+            $id = $request->user_id;
+
+            $new_income = $request->new_income;
+            $sales_discounts = $request->sales_discounts;
+    
+            if(empty($new_income)){
+    
+                $new_income_notification = 0;
+    
+            } else {
+    
+                $new_income_notification = 1;
+    
+            }
+                
+            if(empty($sales_discounts)){
+    
+                $sales_discounts_notification = 0;
+    
+            } else {
+    
+                $sales_discounts_notification = 1;
+    
+            }
+
+            $notif_array = array($sales_discounts_notification, $new_income_notification);
+
+            //dd($notif_array);
+
+            
+
+            $implode_notifications = implode(',', $notif_array);
+
+            DB::table('user_settings')
+            ->where('user_id', '=', $id)
+            ->update([
+                'notifications' => $implode_notifications,
+            ]);
+
+            return back();
+        }
 
     //Избранное (?) (Избранные товары)
     public function account_favorites($id){
+
+        //Вывод товаров на которых есть "лайк"
+        $likes = AccountLikes::where('account_likes.user_id', $id)
+        ->join('account_locker', 'account_likes.product_id', '=', 'account_locker.id')
+        ->select(
+            'account_likes.*',
+            'account_locker.description AS product_name',
+            'account_locker.price AS product_price'
+        )
+        ->get();
+
         
         return view('account.account_favorites',[
             'id' => $id,
+            'likes' => $likes
         ]);
+    }
+    public function product_like(Request $request){
+
+        $id = $request->user_id;
+        $product_id = $request->product_id;
+
+        //Таблица Лайков
+        $likes = DB::table('account_likes')->where('user_id',$id)->where('product_id', $product_id)->first();
+
+        //Если лайка нету
+        if ( empty($likes)){
+
+            //Добавляем лайк к товару
+            DB::table('account_locker')->where('id', $product_id)->increment('likes');
+
+            //Добавляем лайк в бд
+            $new_like = new AccountLikes();
+            $new_like->user_id = $id;
+            $new_like->product_id = $product_id;
+            $new_like->save();
+
+            //Если лайк есть
+        } else {
+            
+            //Убираем лайк
+            DB::table('account_locker')->where('id', $product_id)->decrement('likes');
+
+            //Убираем запись из бд
+            DB::table('account_likes')
+            ->where([
+                ['user_id','=', $id],
+                ['product_id','=', $product_id]
+            ])
+            ->delete();
+        }
+
+        return back();
     }
 
     //Корзина (Моя корзина)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\UserSettings;
 use App\AccountWallet;
+use App\AccountLikes;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -81,6 +82,10 @@ class RegisterController extends Controller
         $user_wallet = new AccountWallet();
         $user_wallet->user_id = $user->id;
         $user_wallet->save();
+
+        $user_likes = new AccountLikes();
+        $user_likes->user_id = $user->id;
+        $user_likes->save();
 
         return $user;
     }

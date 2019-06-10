@@ -20,7 +20,18 @@
         </div>
 
         <ul class="list-item">
-            <li class="item">
+        @if ($likes->isNotEmpty())
+            @foreach ($likes as $like)
+                <li class="item">
+                    <div class="img-item"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
+                    <h4 class="text-item"><a href="#">{{ $like->product_name }}</a></h4>
+                    <h5 class="item-price bold-700">{{ $like->product_price }}$</h5>
+                <li>
+            @endforeach
+        @else
+            NOLIKES
+        @endif
+            <!-- <li class="item">
                 <div class="img-item"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
                 <h4 class="text-item"><a href="#">Giving information on its origins</a></h4>
                 <h5 class="item-price bold-700">150.00$</h5>
@@ -64,12 +75,7 @@
                 <div class="img-item"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
                 <h4 class="text-item"><a href="#">Giving information on its origins</a></h4>
                 <h5 class="item-price bold-700">150.00$</h5>
-            <li>
-            <li class="item">
-                <div class="img-item"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
-                <h4 class="text-item"><a href="#">Giving information on its origins</a></h4>
-                <h5 class="item-price bold-700">150.00$</h5>
-            <li>
+            <li> -->
         </ul>
     </div>
 </div>

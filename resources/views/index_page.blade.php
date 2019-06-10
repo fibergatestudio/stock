@@ -37,7 +37,15 @@
                                     <div class="block-item-product">
                                         <h3><a href="#">{{ $product->seller_name }}</a></h3>
                                         <a href="#"><img src="{{ asset('images/2.png') }}" alt=""></a>
-                                        <h4 class="price-item-product">{{ $product->price }} $ <span class="like"><i class="fas fa-heart"></i> 7</span></h4>
+                                        <h4 class="price-item-product">{{ $product->price }} $ <span class="like">
+                                        <!-- ЛАЙК -->
+                                        <form action="{{ url($id.'/'.$product->id.'/like') }}" method="POST"  enctype="multipart/form-data" class="col">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $id }}">
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit"><i class="fas fa-heart"></i></button>
+                                        </form>
+                                         {{ $product->likes }}</span></h4>
                                         <h4 class="size-product"> Размер </h4>
                                         <h3 class="name-product"><a href="#">{{ $product->description }}</a></h3>
                                     </div>

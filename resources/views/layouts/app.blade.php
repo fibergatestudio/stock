@@ -36,7 +36,11 @@
                     @guest 
                     @else
                     <div class="block-photo-user">
-                        <img src="{{ url('images/2.png') }}" alt="">
+                        @if (empty($user_settings->profile_picture))
+                            <img src="{{ asset('images/2.png') }}" alt="">
+                        @else 
+                            <img src="{{ Storage::url($user_settings->profile_picture) }}" alt="">
+                        @endif
                     </div>
                     <h3 class="name-user">{{ Auth::user()->name }} </h3>
                     <a  data-toggle="collapse" href="#collapse-menu" role="button" aria-expanded="false" aria-controls="collapse-menu"><i class="fas fa-sort-down"></i></a>

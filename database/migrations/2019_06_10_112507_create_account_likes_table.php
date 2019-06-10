@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccountLockerTable extends Migration
+class CreateAccountLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateAccountLockerTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_locker', function (Blueprint $table) {
+        Schema::create('account_likes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_id');
-            $table->string('description');
-            $table->string('price');
-            $table->string('likes')->default('0');
+            $table->string('user_id')->nullable();
+            $table->string('product_id')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateAccountLockerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_locker');
+        Schema::dropIfExists('account_likes');
     }
 }

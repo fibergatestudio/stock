@@ -15,8 +15,9 @@
 //     return view('welcome');
 // });
 
-//Главная Страница
-Route::get('/', 'MainController@index_page');
+//-- ГЛАВНАЯ СТРАНИЦА --//
+    //Главная Страница
+    Route::get('/', 'MainController@index_page');
 
 Auth::routes();
 
@@ -38,9 +39,13 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::post('/account/{id}/settings/apply_settings', 'MainController@account_settings_apply')->middleware('auth');
         //Настройки - Изменить настройки шкафа
         Route::post('/account/{id}/settings/apply_locker_settings', 'MainController@account_locker_settings_apply')->middleware('auth');
+        //Настройки - Сохранить уведомления
+        Route::post('/account/{id}/settings/apply_notifications', 'MainController@account_lapply_notifications')->middleware('auth');
 
     //Избранное (?) (Избранные товары)
     Route::get('/account/{id}/favorites', 'MainController@account_favorites')->middleware('auth');
+        //Добавить в избранное (ЛАЙК)
+        Route::post('{id}/{product_id}/like', 'MainController@product_like');
 
     //Корзина (Моя Корзина)
     Route::get('/account/{id}/cart', 'MainController@account_cart')->middleware('auth');
