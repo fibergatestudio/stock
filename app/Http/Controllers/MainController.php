@@ -31,7 +31,7 @@ class MainController extends Controller
         ->join('users', 'account_locker.user_id', '=', 'users.id')
         ->select(
             'account_locker.*',
-            'users.name AS seller_name',
+            'users.name AS seller_name'
         )
         ->get();
 
@@ -87,6 +87,7 @@ class MainController extends Controller
             
             return view('account.account_settings',[
                 'id' => $id,
+                'message' => '',
                 'user_settings' => $user_settings
             ]);
         }

@@ -33,7 +33,9 @@ Route::get('/home', 'HomeController@index')->name('home');
         Route::post('/account/{id}/messages/{message_id}/archive', 'MainController@account_messages_archive')->middleware('auth');
 
     //Настройки (Мои Настройки)
-    Route::get('/account/{id}/settings', 'MainController@account_settings')->middleware('auth');
+    Route::get('/account/{id}/settings', 'MainController@account_settings')->name('account_settings')->middleware('auth');
+        //Настройки - Изменить пароль
+        Route::post('/account/settings/change_password', 'ChangePasswordController@change_password');
         //Настройки - Изменить настройки
         Route::post('/account/{id}/settings/apply_settings', 'MainController@account_settings_apply')->middleware('auth');
         //Настройки - Изменить настройки шкафа
