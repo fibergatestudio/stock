@@ -21,8 +21,20 @@
 
 Auth::routes();
 
+//-- ФЕЙСБУК ЛОГИН --//
+    //Переадресация на ФБ
+    Route::get('/login/{social}','Auth\LoginController@socialLogin')->where('social','facebook');
+    //Коллбэк с фейсбука
+    Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')->where('social','facebook');
+
 //Регистрация (?)
 Route::get('/home', 'HomeController@index')->name('home');
+
+//-- АККАУНТ СУПЕР АДМИНА --//
+    //Аадминка (Страница)
+    Route::get('/account/{id}/admin', 'MainController@account')->middleware('auth');
+    //Страница Юзеров
+    Route::get('/account/{id}/admin/users_table', 'MainController@admin_users_table')->middleware('auth');
 
 //-- АККАУНТ ПОЛЬЗОВАТЕЛЯ --//
     //Аккаунт (Мой Аккаунт)

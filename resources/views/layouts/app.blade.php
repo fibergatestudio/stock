@@ -175,11 +175,20 @@
                                     {{ __('Register') }}
                                 </button>
                                 <div><span>или</span></div>
-                            <button type="submit" class="btn btn-submit">Войти через Facebook</button>
+                            <!-- <button type="submit" class="btn btn-submit">Войти через Facebook</button> -->
                             <p>Уже есть аккаунт? <a href="#">Авторизоваться</a></p>
                             </div>
                         </div>
                     </form>
+                    <div class="form-group row mb-0">
+                        <div style="text-align: center;" class="col-md-12">
+                            <a href="{{ url('login/facebook') }}" >
+                                <button class="btn btn-social-icon btn-primary">
+                                    Войти через Facebook <i class="fa fa-facebook"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -253,7 +262,7 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                     <span>or</span>
-                                    <button type="submit" class="btn btn-submit">Войти через Facebook</button>
+                                    <a href="{{ url('login/facebook') }}" ><button type="submit" class="btn btn-social-icon btn-primary">Войти через Facebook <i class="fa fa-facebook"></i></button></a>
                                 @endif
                             </div>
                         </div>

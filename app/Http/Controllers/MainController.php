@@ -39,9 +39,39 @@ class MainController extends Controller
         )
         ->get();
 
-        return view('index_page',[
+        if($id == '1'){
+
+            return view('admin.admin_home',[
+                'id' => $id,
+                'all_products' => $all_products,
+            ]);
+
+        } elseif ($id == 'null') {
+
+            return view('index_page',[
+                'id' => $id,
+                'all_products' => $all_products,
+            ]);
+
+        } else {
+
+            return view('index_page',[
+                'id' => $id,
+                'all_products' => $all_products,
+            ]);
+
+        }
+
+    }
+
+    public function admin_users_table($id){
+
+        $users = DB::table('users')->get();
+
+
+        return view('admin.admin_users_table',[
             'id' => $id,
-            'all_products' => $all_products,
+            'users' => $users
         ]);
     }
 
