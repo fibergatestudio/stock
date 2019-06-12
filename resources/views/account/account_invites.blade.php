@@ -7,7 +7,7 @@
         <div class="block-text-friends row">
             <div class="col-md-6">
                 <p>Получи за каждого приглашенного друга сделавшего покупку на 200 шекелей - 40 шекелей на свой счет.<br/><br/>
-                    <span>При этом они получат скидку 20долларов скидку на первую покупку</span>
+                    <span>При этом они получат скидку 20 долларов на первую покупку</span>
                 </p>
                 <div>
                     <span>Поделитесь своей ссылкой</span>
@@ -15,9 +15,9 @@
 
                         <div class="form-group mx-sm-3 mb-2">
                             <label for="" class="sr-only"></label>
-                            <input class="form-control" id="" >
+                            <input id="ref-id" class="form-control" value="{{ url('?ref-id='.$id) }}" >
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2">копировать</button>
+                        <button onclick="copyFunction(this)" type="button" class="btn btn-primary mb-2">Копировать</button>
                     </form>
                 </div>
 
@@ -31,5 +31,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

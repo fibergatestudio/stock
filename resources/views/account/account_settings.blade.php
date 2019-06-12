@@ -68,24 +68,55 @@
                                 </div>
                                 <button type="submit" class="btn btn-secondary">Сохранить</button>
                             </form>
-                            <form action class="col">
+                            
+                            <form id="form-change-password" role="form" method="POST" action="{{ url('/account/settings/change_password') }}" novalidate class="col form-horizontal">
                                 <div class="form-group">
                                     <h2  class="form-title">Изменить пароль</h2>
                                 </div>
+                                @if ($message !== '')
+                                <p style="color: green;">{{ $message }}</p>
+                                @endif
+                                <?php 
+                                /*if (!empty($pass_errors)) {
+                                    echo '<pre>'. print_r($pass_errors,true).'</pre>';
+                                    //die();
+                                } */ 
+                                ?>
                                 <div class="form-group">
-                                    <label for="current-pass">Текущий пароль</label>
-                                    <input type="text" class="form-control" id="current-pass">
+                                    <label for="current-password">Текущий пароль</label>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"> 
+                                    <input type="password" class="form-control {{ (isset($pass_errors['current-password'][0]) OR isset($pass_error['current-password']))?'is-invalid':'' }}" id="current-password" name="current-password">
+                                    @if (isset($pass_errors['current-password'][0]))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $pass_errors['current-password'][0] }}</strong>
+                                    </span>
+                                    @elseif (isset($pass_error['current-password']))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $pass_error['current-password'] }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="new-pass">Новый пароль</label>
-                                    <input type="text" class="form-control" id="new-pass">
+                                    <label for="password">Новый пароль</label>
+                                    <input type="password" class="form-control {{ (isset($pass_errors['password'][0]))?'is-invalid':'' }}" id="password" name="password">
+                                    @if (isset($pass_errors['password'][0]))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $pass_errors['password'][0] }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="repeat-pass">Повторить пароль</label>
-                                    <input type="text" class="form-control" id="repeat-pass">
+                                    <label for="password_confirmation">Повторить пароль</label>
+                                    <input type="password" class="form-control {{ (isset($pass_errors['password_confirmation'][0]))?'is-invalid':'' }}" id="password_confirmation" name="password_confirmation">
+                                    @if (isset($pass_errors['password_confirmation'][0]))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $pass_errors['password_confirmation'][0] }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-                                <button class="btn btn-secondary">Обновить</button>
-                            </form>
+                                <button type="submit" class="btn btn-secondary">Обновить</button>
+                            </form>                       
+                        
                         </div>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">

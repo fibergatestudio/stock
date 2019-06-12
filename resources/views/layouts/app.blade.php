@@ -52,12 +52,12 @@
                             <!-- Логин -->
                             <li class="nav-item" >
                                 <!-- <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a> -->
-                                <a style="cursor: pointer;" class="nav-link text-white" data-toggle="modal" data-target="#exampleModal2">Login</a>
+                                <a style="cursor: pointer;" class="nav-link text-white" data-toggle="modal" data-target="#exampleModal2">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                             <li class="nav-item">
                                 <!-- <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a> -->
-                                <a style="cursor: pointer;" class="nav-link text-white" data-toggle="modal" data-target="#exampleModal">Register</a>
+                                <a style="cursor: pointer;" class="nav-link text-white" data-toggle="modal" data-target="#exampleModal">{{ __('Register') }}</a>
                             </li>
                             @endif
                         @else
@@ -123,9 +123,10 @@
                             <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label> -->
 
                             <div class="col-md-12">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Name" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Имя" required autocomplete="name" autofocus>
 
                                 @error('name')
+                                    <script type="text/javascript"> localStorage.setItem('errorModal', 'true');</script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -140,6 +141,7 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="E-mail" required autocomplete="email">
 
                                 @error('email')
+                                    <script type="text/javascript"> localStorage.setItem('errorModal', 'true');</script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -151,9 +153,10 @@
                             <!-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> -->
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Пароль" required autocomplete="new-password">
 
                                 @error('password')
+                                    <script type="text/javascript"> localStorage.setItem('errorModal', 'true');</script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -165,13 +168,13 @@
                             <!-- <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
 
                             <div class="col-md-12">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Повторить пароль" required autocomplete="new-password">
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
                             <div style="text-align: center;" class="col-md-12">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="buttonModal" type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
                                 <div><span>или</span></div>
@@ -218,6 +221,7 @@
                                 <input id="email" type="email" class="email form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="mail@mail.com" required autocomplete="email" autofocus>
 
                                 @error('email')
+                                    <script type="text/javascript"> localStorage.setItem('errorModal2', 'true');</script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -229,9 +233,10 @@
                             <!-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> -->
 
                             <div class="col-md-12">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Пароль" required autocomplete="current-password">
 
                                 @error('password')
+                                    <script type="text/javascript"> localStorage.setItem('errorModal2', 'true');</script>
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -253,7 +258,7 @@
 
                         <div class="form-group row mb-0">
                             <div style="text-align: center;" class="col-md-12">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="buttonModal2" type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button> <br>
 
@@ -318,3 +323,102 @@
     </div>
 </footer>
 </html>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript">
+    
+    /**
+    * Восстановление модального окна при ошибках
+    */ 
+    $('#buttonModal2').click(function (){localStorage.setItem('linkModal2', 'true');});
+    $('#buttonModal').click(function (){localStorage.setItem('linkModal', 'true');});
+    
+    var errorModal = 'undefined';
+    var errorModal2 = 'undefined';
+    var linkModal = 'undefined';
+    var linkModal2 = 'undefined';    
+    
+    $(document).ready(function (){
+        
+        errorModal = localStorage.getItem('errorModal');
+        linkModal = localStorage.getItem('linkModal');        
+        if (errorModal === 'true' && linkModal === 'true') {
+            $('#exampleModal').modal('show');
+            localStorage.clear();
+        }
+        
+        errorModal2 = localStorage.getItem('errorModal2');
+        linkModal2 = localStorage.getItem('linkModal2');
+        if (errorModal2 === 'true' && linkModal2 === 'true') {
+            $('#exampleModal2').modal('show');
+            localStorage.clear();
+        } 
+      
+    });
+    /**
+    *  Конец "Восстановление модального окна при ошибках"
+    */
+
+    
+    /**
+    *  Копирование реферальной ссылки в буфер обмена
+    */
+    function copyToClipboard(elem) {
+          // create hidden text element, if it doesn't already exist
+        var targetId = "_hiddenCopyText_";
+        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+        var origSelectionStart, origSelectionEnd;
+        if (isInput) {
+            // can just use the original source element for the selection and copy
+            target = elem;
+            origSelectionStart = elem.selectionStart;
+            origSelectionEnd = elem.selectionEnd;
+        } else {
+            // must use a temporary form element for the selection and copy
+            target = document.getElementById(targetId);
+            if (!target) {
+                var target = document.createElement("textarea");
+                target.style.position = "absolute";
+                target.style.left = "-9999px";
+                target.style.top = "0";
+                target.id = targetId;
+                document.body.appendChild(target);
+            }
+            target.textContent = elem.textContent;
+        }
+        // select the content
+        var currentFocus = document.activeElement;
+        target.focus();
+        target.setSelectionRange(0, target.value.length);
+        
+        // copy the selection
+        var succeed;
+        try {
+              succeed = document.execCommand("copy");
+        } catch(e) {
+            succeed = false;
+        }
+        // restore original focus
+        if (currentFocus && typeof currentFocus.focus === "function") {
+            currentFocus.focus();
+        }
+        
+        if (isInput) {
+            // restore prior selection
+            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+        } else {
+            // clear temporary content
+            target.textContent = "";
+        }
+        return succeed;
+    } 
+
+    function copyFunction(elem) {
+        copyToClipboard(document.getElementById("ref-id"));
+        $(elem).text('Ссылка скопирована!');
+    }
+    /**
+    *  Конец "Копирование реферальной ссылки в буфер обмена"
+    */
+      
+</script>

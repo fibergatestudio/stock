@@ -35,7 +35,7 @@ class MainController extends Controller
         ->join('users', 'account_locker.user_id', '=', 'users.id')
         ->select(
             'account_locker.*',
-            'users.name AS seller_name',
+            'users.name AS seller_name'
         )
         ->get();
 
@@ -75,7 +75,7 @@ class MainController extends Controller
         ]);
     }
 
-    
+
     //Аккаунт (Мой Аккаунт)
     public function account($id){
 
@@ -124,9 +124,10 @@ class MainController extends Controller
             $notification_exp = explode(',', $notifications);
 
             $user = DB::table('users')->where('id', $id)->first();
-            
+
             return view('account.account_settings',[
                 'id' => $id,
+                'message' => '',
                 'user_settings' => $user_settings,
                 'notification_exp' => $notification_exp,
                 'user' => $user
@@ -187,7 +188,7 @@ class MainController extends Controller
             } else{
                 $profile_picture = $settings->profile_picture;
             }
-            
+
             //dd($request->locker_background->store('public/'.$id));
 
             //dd($additional_info);
@@ -222,32 +223,32 @@ class MainController extends Controller
 
             $new_income = $request->new_income;
             $sales_discounts = $request->sales_discounts;
-    
+
             if(empty($new_income)){
-    
+
                 $new_income_notification = 0;
-    
+
             } else {
-    
+
                 $new_income_notification = 1;
-    
+
             }
-                
+
             if(empty($sales_discounts)){
-    
+
                 $sales_discounts_notification = 0;
-    
+
             } else {
-    
+
                 $sales_discounts_notification = 1;
-    
+
             }
 
             $notif_array = array($sales_discounts_notification, $new_income_notification);
 
             //dd($notif_array);
 
-            
+
 
             $implode_notifications = implode(',', $notif_array);
 
@@ -273,7 +274,7 @@ class MainController extends Controller
         )
         ->get();
 
-        
+
         return view('account.account_favorites',[
             'id' => $id,
             'likes' => $likes
@@ -301,7 +302,7 @@ class MainController extends Controller
 
             //Если лайк есть
         } else {
-            
+
             //Убираем лайк
             DB::table('account_locker')->where('id', $product_id)->decrement('likes');
 
@@ -319,7 +320,7 @@ class MainController extends Controller
 
     //Корзина (Моя корзина)
     public function account_cart($id){
-        
+
         return view('account.account_cart',[
             'id' => $id,
         ]);
@@ -335,7 +336,7 @@ class MainController extends Controller
             'account_locker' => $locker,
         ]);
     }
-    
+
 
     //Продажи (Мои Продажи)
     public function account_sales($id){
@@ -373,7 +374,7 @@ class MainController extends Controller
                 'id' => $id,
                 'account_wallet' => $account_wallet,
             ]);
-        
+
         }
         public function account_wallet_apply_changes(Request $request){
 
