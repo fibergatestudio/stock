@@ -39,7 +39,7 @@
                         @if (empty($user_settings->profile_picture))
                             <img src="{{ asset('images/2.png') }}" alt="">
                         @else 
-                            <img src="{{ Storage::url($user_settings->profile_picture) }}" alt="">
+                            <img style="border-radius: 50%;" src="{{ Storage::url($user_settings->profile_picture) }}" alt="">
                         @endif
                     </div>
                     <h3 class="name-user">{{ Auth::user()->name }} </h3>

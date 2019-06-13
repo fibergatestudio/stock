@@ -64,8 +64,14 @@ Route::get('/home', 'HomeController@index')->name('home');
     //Корзина (Моя Корзина)
     Route::get('/account/{id}/cart', 'MainController@account_cart')->middleware('auth');
 
-    //Шкай (Мой Шкаф)
+    //Шкаф (Мой Шкаф)
     Route::get('/account/{id}/locker', 'MainController@account_locker')->middleware('auth');
+        //Шкаф (Изменить Никнейм)
+        Route::post('/account/{id}/locker/change_nickname', 'MainController@locker_change_nickname')->middleware('auth');
+        //Шкаф (Изменить Никнейм)
+        Route::post('/account/{id}/locker/change_background', 'MainController@locker_change_background')->middleware('auth');
+        //Шкаф (Изменить Никнейм)
+        Route::post('/account/{id}/locker/change_profile_picture', 'MainController@locker_change_profile_picture')->middleware('auth');
 
     //Продажи (Мои Продажи)
     Route::get('/account/{id}/sales', 'MainController@account_sales')->middleware('auth');

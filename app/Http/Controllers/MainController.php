@@ -326,16 +326,68 @@ class MainController extends Controller
         ]);
     }
 
-    //Шкай (Мой Шкаф)
-    public function account_locker($id){
+    //-- ШКАФ --//
+        //Шкай (Мой Шкаф)
+        public function account_locker($id){
 
-        $locker = DB::table('account_locker')->where('user_id', $id)->get();
+            $locker = DB::table('account_locker')->where('user_id', $id)->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
 
-        return view('account.account_locker',[
-            'id' => $id,
-            'account_locker' => $locker,
-        ]);
-    }
+            return view('account.account_locker',[
+                'id' => $id,
+                'account_locker' => $locker,
+                'items' => $items,
+                'user_settings' => $user_settings
+            ]);
+        }
+
+        //Изменить никнейм
+        public function locker_change_nickname(Request $request){
+
+            $id = $request->id;
+            $new_username = $request->new_username;
+
+            DB::table('users')
+            ->where('id', '=', $id)
+            ->update([
+                'name' => $new_username,
+            ]);
+
+
+            return back();
+        }
+        //Изменить бэкграунд
+        public function locker_change_background(Request $request){
+
+            $id = $request->id;
+            $locker_background = $request->locker_background->store('public/storage/'.$id);
+
+
+            DB::table('user_settings')
+            ->where('user_id', '=', $id)
+            ->update([
+                'locker_background' => $locker_background,
+            ]);
+
+
+            return back();
+        }
+        //Изменить аватарку
+        public function locker_change_profile_picture(Request $request){
+
+            $id = $request->id;
+            $profile_picture = $request->profile_picture->store('public/storage/'.$id.'/avatar');
+
+
+            DB::table('user_settings')
+            ->where('user_id', '=', $id)
+            ->update([
+                'profile_picture' => $profile_picture,
+            ]);
+
+            return back();
+        }
 
 
     //Продажи (Мои Продажи)
