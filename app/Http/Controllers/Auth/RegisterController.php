@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Input;
 
 
 class RegisterController extends Controller
@@ -76,6 +77,9 @@ class RegisterController extends Controller
         ]);
 
         $user_settings = new UserSettings();
+        if (isset($data['ref_id'])) {
+            $user_settings->ref_id = $data['ref_id'];
+        }       
         $user_settings->user_id = $user->id;
         $user_settings->save();
 

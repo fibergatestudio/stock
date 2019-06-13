@@ -71,7 +71,8 @@ class MainController extends Controller
 
         return view('admin.admin_users_table',[
             'id' => $id,
-            'users' => $users
+            'users' => $users,
+            'sent_message' => ''
         ]);
     }
 
