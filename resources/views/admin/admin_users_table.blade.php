@@ -27,14 +27,20 @@
                 </td>
                 <td>
                     <div class="row">
-                        <button class="btn btn-warning">Удалить</button>
-                        <button class="btn btn-warning">Изменить Роль</button>
+                    <a href="{{ url('/account/' . $id . '/admin/users_table/' . $user->id . '/delete') }}"><button class="btn btn-warning">Удалить</button></a>
+                        @if ($user->role == 'admin')
+                        <a href="{{ url('/account/' . $id . '/admin/users_table/' . $user->id . '/change_role') }}"><button class="btn btn-primary">Сделать Юзером</button></a>
+                        @elseif ($user->role == 'user')
+                        <a href="{{ url('/account/' . $id . '/admin/users_table/' . $user->id . '/change_role') }}"><button class="btn btn-warning">Сделать Админом</button></a>
+                        @endif 
                     </div>
                 </td>
             </tr>
+
             @endforeach
             </tbody>
         </table>  
     </div>
 </div>
+
 @endsection

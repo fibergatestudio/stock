@@ -35,6 +35,10 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/account/{id}/admin', 'MainController@account')->middleware('auth');
     //Страница Юзеров
     Route::get('/account/{id}/admin/users_table', 'MainController@admin_users_table')->middleware('auth');
+        //Удалить юзера
+        Route::get('/account/{id}/admin/users_table/{user_id}/delete', 'MainController@admin_delete_user')->middleware('auth');
+        //Изменить роль юзера
+        Route::get('/account/{id}/admin/users_table/{user_id}/change_role', 'MainController@admin_change_user_role')->middleware('auth');
 
 //-- АККАУНТ ПОЛЬЗОВАТЕЛЯ --//
     //Аккаунт (Мой Аккаунт)
@@ -63,14 +67,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Корзина (Моя Корзина)
     Route::get('/account/{id}/cart', 'MainController@account_cart')->middleware('auth');
+        //Корзина - Добавить в избранное
+        Route::post('/account/{id}/cart/{product_id}/add_favorite', 'MainController@cart_add_favorite')->middleware('auth');
+        //Корзина - Удалить товар
+        Route::post('/account/{id}/cart/{product_id}/delete', 'MainController@cart_delete_product')->middleware('auth');
+        //Корзина - Добавить товар (тест)
+        Route::get('/account/{id}/cart/add_prod', 'MainController@cart_add_prod')->middleware('auth');
 
     //Шкаф (Мой Шкаф)
     Route::get('/account/{id}/locker', 'MainController@account_locker')->middleware('auth');
         //Шкаф (Изменить Никнейм)
         Route::post('/account/{id}/locker/change_nickname', 'MainController@locker_change_nickname')->middleware('auth');
-        //Шкаф (Изменить Никнейм)
+        //Шкаф (Изменить Бэкграунд)
         Route::post('/account/{id}/locker/change_background', 'MainController@locker_change_background')->middleware('auth');
-        //Шкаф (Изменить Никнейм)
+        //Шкаф (Изменить Аватар)
         Route::post('/account/{id}/locker/change_profile_picture', 'MainController@locker_change_profile_picture')->middleware('auth');
 
     //Продажи (Мои Продажи)

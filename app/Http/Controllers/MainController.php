@@ -12,6 +12,7 @@ use App\AccountPurchases;
 use App\AccountMessages;
 use App\AccountWallet;
 use App\AccountLikes;
+use App\AccountCart;
 
 
 class MainController extends Controller
@@ -24,11 +25,13 @@ class MainController extends Controller
         {
             //Берем айдишник
             $id = Auth::user()->id;
+            $role = Auth::user()->role;
         }
         else if(Auth::guest())
         {
             //Не берем айдишник
             $id = 'null';
+            $role = 'null';
         }
 
         $all_products = DB::table('account_locker')
@@ -39,14 +42,14 @@ class MainController extends Controller
         )
         ->get();
 
-        if($id == '1'){
+        if($role == 'admin'){
 
             return view('admin.admin_home',[
                 'id' => $id,
                 'all_products' => $all_products,
             ]);
 
-        } elseif ($id == 'null') {
+        } elseif ($role == 'user') {
 
             return view('index_page',[
                 'id' => $id,
@@ -64,16 +67,50 @@ class MainController extends Controller
 
     }
 
-    public function admin_users_table($id){
+    //-- СУПЕР АДМИН --//
+        //Админ - Таблица Юзеров
+        public function admin_users_table($id){
 
-        $users = DB::table('users')->get();
+            $users = DB::table('users')->get();
 
 
-        return view('admin.admin_users_table',[
-            'id' => $id,
-            'users' => $users
-        ]);
-    }
+            return view('admin.admin_users_table',[
+                'id' => $id,
+                'users' => $users
+            ]);
+        }
+        //Админ - Удалить Юзера
+        public function admin_delete_user($id, $user_id){
+
+            DB::table('users')->where('id', '=', $user_id)->delete();
+            DB::table('user_settings')->where('id', '=', $user_id)->delete();
+
+            return back();
+        }
+
+        //Админ - Изменить Роль
+        public function admin_change_user_role($id, $user_id){
+
+
+            $current_role = DB::table('users')->where('id', $user_id)->first();
+            $role = $current_role->role;
+
+            //dd($role, $id);
+
+            if ($role == 'admin')
+                DB::table('users')->where('id', '=', $user_id)
+                ->update([
+                    'role' => 'user',
+                ]);
+            elseif ($role == 'user'){
+                DB::table('users')->where('id', '=', $user_id)
+                ->update([
+                    'role' => 'admin',
+                ]);
+            }
+
+            return back();
+        }
 
 
     //Аккаунт (Мой Аккаунт)
@@ -318,13 +355,82 @@ class MainController extends Controller
         return back();
     }
 
-    //Корзина (Моя корзина)
-    public function account_cart($id){
+    //-- КОРЗИНА --//
+        //Корзина (Моя корзина)
+        public function account_cart($id){
 
-        return view('account.account_cart',[
-            'id' => $id,
-        ]);
-    }
+            $cart_items = DB::table('account_cart')->where('user_id', $id)->get();
+            $cart_sum = DB::table('account_cart')->where('user_id', $id)->sum('price');
+            $cart_count = DB::table('account_cart')->where('user_id', $id)->count();
+
+            return view('account.account_cart',[
+                'id' => $id,
+                'cart_items' => $cart_items,
+                'cart_sum' => $cart_sum,
+                'cart_count' => $cart_count
+            ]);
+        }
+        //Корзина - Добавить в избранное
+        public function cart_add_favorite(Request $request){
+
+            $product_id = $request->product_id;
+
+            //Таблица Лайков
+            $likes = DB::table('account_likes')->where('user_id',$id)->where('product_id', $product_id)->first();
+
+            //Если лайка нету
+            if ( empty($likes)){
+
+                //Добавляем лайк к товару
+                DB::table('account_locker')->where('id', $product_id)->increment('likes');
+
+                //Добавляем лайк в бд
+                $new_like = new AccountLikes();
+                $new_like->user_id = $id;
+                $new_like->product_id = $product_id;
+                $new_like->save();
+
+                //Если лайк есть
+            } else {
+
+                //Убираем лайк
+                DB::table('account_locker')->where('id', $product_id)->decrement('likes');
+
+                //Убираем запись из бд
+                DB::table('account_likes')
+                ->where([
+                    ['user_id','=', $id],
+                    ['product_id','=', $product_id]
+                ])
+                ->delete();
+            }
+
+            return back();
+        }
+
+        //Корзина - Удалить Товар
+        public function cart_delete_product(Request $request){
+
+            $product_id = $request->product_id;
+
+            DB::table('account_cart')->where('id', $product_id)->delete();
+
+            return back();
+        }
+        //Коризна - Добавить Товар (ТЕСТ)
+        public function cart_add_prod($id){
+
+            $new_prod = new AccountCart();
+            $new_prod->user_id = $id;
+            $new_prod->product_id = '1';
+            $new_prod->product_title = 'TestTitle';
+            $new_prod->product_description = 'TestDescription';
+            $new_prod->price = '250';
+            $new_prod->delivery = 'Включена';
+            $new_prod->save();
+
+            return back();
+        }
 
     //-- ШКАФ --//
         //Шкай (Мой Шкаф)
