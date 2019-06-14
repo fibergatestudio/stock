@@ -43,7 +43,7 @@
                                 <input type="hidden" name="product_id" value="{{ $cart_item->id }}">
                                 <input type="hidden" name="user_id" value="{{ $id }}">
                                 <div class="form-group m-0">
-                                    <button class="btn btn-secondary btn-block">Удалить</button>
+                                    <button class="btn btn-secondary btn-block">Добавить в избранное</button>
                                 </div>
                             </form>
                             <!-- Удалить из Корзины -->

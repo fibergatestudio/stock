@@ -374,6 +374,7 @@ class MainController extends Controller
         public function cart_add_favorite(Request $request){
 
             $product_id = $request->product_id;
+            $id = $request->user_id;
 
             //Таблица Лайков
             $likes = DB::table('account_likes')->where('user_id',$id)->where('product_id', $product_id)->first();
