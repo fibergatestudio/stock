@@ -32,15 +32,38 @@
                         <a href="{{ url('/account/' . $id . '/admin/users_table/' . $user->id . '/change_role') }}"><button class="btn btn-primary">Сделать Юзером</button></a>
                         @elseif ($user->role == 'user')
                         <a href="{{ url('/account/' . $id . '/admin/users_table/' . $user->id . '/change_role') }}"><button class="btn btn-warning">Сделать Админом</button></a>
-                        @endif 
+                        @endif
                     </div>
                 </td>
             </tr>
 
             @endforeach
             </tbody>
-        </table>  
+        </table>
+
+        <form action="{{ url('/admin/send_message') }}" method="POST" enctype="multipart/form-data" class="col">
+            @csrf
+            <input type="hidden" name="from_user_id" value="{{ $id }}">
+            <input type="hidden" name="date" value="{{ date('Y-m-d') }}">
+            <div class="form-group">
+                <h2 class="form-title">Отправка сообщений</h2>
+            </div>
+            @if ($sent_message !== '')
+            <p style="color: green;">{{ $sent_message }}</p>
+            @endif
+            <div class="form-group">
+                <label for="theme">Тема</label>
+                <input type="text" name="theme" class="form-control" id="theme" placeholder="Тема сообщения" >
+            </div>
+            <div class="form-group">
+                <label for="message">Текст</label>
+                <textarea name="message" class="form-control" id="message" placeholder="Текст сообщения" ></textarea>
+            </div>
+            <button type="submit" class="btn btn-secondary">Отправить всем сообщение</button>
+        </form>
+
     </div>
 </div>
+
 
 @endsection

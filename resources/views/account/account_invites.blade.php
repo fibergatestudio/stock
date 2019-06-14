@@ -19,6 +19,7 @@
                         </div>
                         <button onclick="copyFunction(this)" type="button" class="btn btn-primary mb-2">Копировать</button>
                     </form>
+                    <p>При регистрации у приглашенного будет дополнительный, заполненный пункт "ID пригласившего"</p>
                 </div>
 
             </div>

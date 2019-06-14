@@ -118,10 +118,24 @@
                     <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
+                        
+                        @if (!empty($_GET["ref-id"]))
                         <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="ref" placeholder="ID пригласившего - <?=(!empty($_GET['ref-id']))?$_GET['ref-id']:''?>" disabled >
+                                <input type="hidden" name="ref_id" value="<?=(!empty($_GET['ref-id']))?$_GET['ref-id']:''?>" required>
+                            </div>
+                        </div>
+                        @endif
+                        
+                        <div class="form-group row">
+                            
                             <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label> -->
 
+                            <?php /*if (!empty($_GET["ref-id"])) {
+                                echo '<pre>'. print_r($_GET["ref-id"],true).'</pre>';
+                            }*/  ?>
+                            
                             <div class="col-md-12">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" placeholder="Имя" required autocomplete="name" autofocus>
 

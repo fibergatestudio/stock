@@ -49,7 +49,7 @@
                                         
                                         </div> -->
                                     </td>
-                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $sent_message->user_id }}, {{ $sent_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $sent_message->message }}</a></td><td class="col-md-2">{{ $sent_message->date }}</td>
+                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $sent_message->user_id }}, {{ $sent_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления: {{ $sent_message->theme }}</a></td><td class="col-md-2">{{ $sent_message->date }}</td>
                                 </tr>
                                 @endforeach
                             @else
@@ -83,7 +83,7 @@
                                                 
                                             </form>
                                     </td>
-                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $received_message->user_id }}, {{ $received_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $received_message->message }}</a></td><td class="col-md-2">{{ $received_message->date }}</td>
+                                    <td class="col-md-3"><a href="#" class="icon-refer">{{ $received_message->user_id }}, {{ $received_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления: {{ $received_message->theme }}</a></td><td class="col-md-2">{{ $received_message->date }}</td>
                                 </tr>
                                 @endforeach
                             @else
@@ -138,7 +138,7 @@
                                         <label class="form-check-label" for="defaultCheck2"><a href="#" class="icon-delete icon"></a></label>
                                     </div>
                                 </td>
-                                <td class="col-md-3"><a href="#" class="icon-refer">{{ $archived_message->user_id }}, {{ $archived_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления {{ $archived_message->message }}</a></td><td class="col-md-2">{{ $archived_message->date }}</td>
+                                <td class="col-md-3"><a href="#" class="icon-refer">{{ $archived_message->user_id }}, {{ $archived_message->from_user_id }}</a></td><td class="col-md-5"><a href="#">Название объявления: {{ $archived_message->theme }}</a></td><td class="col-md-2">{{ $archived_message->date }}</td>
                             </tr>
                             @endforeach
                             <!-- <tr class="row">
