@@ -44,4 +44,49 @@ class AdminController extends Controller
         ]);
     }
 
+    //Админ - Таблица Юзеров
+    public function admin_users_table($id){
+
+        $users = DB::table('users')->get();
+
+
+        return view('admin.admin_users_table',[
+            'id' => $id,
+            'users' => $users,
+            'sent_message' => ''
+        ]);
+    }
+    //Админ - Удалить Юзера
+    public function admin_delete_user($id, $user_id){
+
+        DB::table('users')->where('id', '=', $user_id)->delete();
+        DB::table('user_settings')->where('id', '=', $user_id)->delete();
+
+        return back();
+    }
+
+    //Админ - Изменить Роль
+    public function admin_change_user_role($id, $user_id){
+
+
+        $current_role = DB::table('users')->where('id', $user_id)->first();
+        $role = $current_role->role;
+
+        //dd($role, $id);
+
+        if ($role == 'admin')
+            DB::table('users')->where('id', '=', $user_id)
+            ->update([
+                'role' => 'user',
+            ]);
+        elseif ($role == 'user'){
+            DB::table('users')->where('id', '=', $user_id)
+            ->update([
+                'role' => 'admin',
+            ]);
+        }
+
+        return back();
+    }
+
 }
