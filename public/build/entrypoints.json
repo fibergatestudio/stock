@@ -1,0 +1,12 @@
+{
+  "entrypoints": {
+    "main": {
+      "css": [
+        "/stock/assets/build/main.css"
+      ],
+      "js": [
+        "/stock/assets/build/main.js"
+      ]
+    }
+  }
+}

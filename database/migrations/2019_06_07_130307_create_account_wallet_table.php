@@ -16,6 +16,7 @@ class CreateAccountWalletTable extends Migration
         Schema::create('account_wallet', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id')->nullable();
+            $table->string('credit_money')->default('0')->nullable();
             $table->string('waiting_money')->default('0')->nullable();
             $table->string('available_money')->default('0')->nullable();
             $table->string('card_name')->nullable();

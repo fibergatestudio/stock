@@ -19,6 +19,7 @@ class CreateAccountLockerTable extends Migration
             $table->string('description');
             $table->string('price');
             $table->string('likes')->default('0');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

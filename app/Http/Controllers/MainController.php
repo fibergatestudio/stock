@@ -35,6 +35,7 @@ class MainController extends Controller
         }
 
         $all_products = DB::table('account_locker')
+        ->where('status', 'active')
         ->join('users', 'account_locker.user_id', '=', 'users.id')
         ->select(
             'account_locker.*',
@@ -163,12 +164,15 @@ class MainController extends Controller
 
             $user = DB::table('users')->where('id', $id)->first();
 
+            $account_wallet = DB::table('account_wallet')->where('user_id', $id)->first();
+
             return view('account.account_settings',[
                 'id' => $id,
                 'message' => '',
                 'user_settings' => $user_settings,
                 'notification_exp' => $notification_exp,
-                'user' => $user
+                'user' => $user,
+                'account_wallet' => $account_wallet
             ]);
         }
         // Применить Настройки
@@ -449,6 +453,90 @@ class MainController extends Controller
                 'user_settings' => $user_settings
             ]);
         }
+        //Дообавить товар
+        public function account_locker_add_item_index($id){
+
+            $locker = DB::table('account_locker')->where('user_id', $id)->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            return view('account.account_locker.account_locker_add_item',[
+                'id' => $id,
+            ]);
+        }
+
+        public function account_locker_add_item(Request $request){
+
+
+            return back();
+        }
+
+        public function account_locker_delete_item($id, $item_id){
+
+            //dd($id, $item_id);
+            
+            $delete_item = DB::table('account_locker')->where('id', $item_id)->where('user_id', $id)->delete();
+
+            return back();
+        }
+
+        //Активные ссылки
+        public function account_locker_active_links($id){
+
+            $locker = DB::table('account_locker')->where('user_id', $id)->where('status', 'active')->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            return view('account.account_locker.account_locker_active_links',[
+                'id' => $id,
+                'account_locker' => $locker,
+                'items' => $items,
+                'user_settings' => $user_settings
+            ]);
+        }
+
+        //Черновики
+        public function account_locker_drafts($id){
+
+            $locker = DB::table('account_locker')->where('user_id', $id)->where('status', 'draft')->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            return view('account.account_locker.account_locker_drafts',[
+                'id' => $id,
+                'account_locker' => $locker,
+                'items' => $items,
+                'user_settings' => $user_settings
+            ]);
+        }
+        //Удалены
+        public function account_locker_deleted($id){
+
+            $locker = DB::table('account_locker')->where('user_id', $id)->where('status', 'deleted')->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            return view('account.account_locker.account_locker_deleted',[
+                'id' => $id,
+                'account_locker' => $locker,
+                'items' => $items,
+                'user_settings' => $user_settings
+            ]);
+        }
+        //Проданные
+        public function account_locker_sold_out($id){
+
+            $locker = DB::table('account_locker')->where('user_id', $id)->where('status', 'sold')->get();
+            $items = DB::table('account_locker')->where('user_id', $id)->count();
+            $user_settings = DB::table('user_settings')->where('user_id', $id)->first();
+
+            return view('account.account_locker.account_locker_sold_out',[
+                'id' => $id,
+                'account_locker' => $locker,
+                'items' => $items,
+                'user_settings' => $user_settings
+            ]);
+        }
 
         //Изменить никнейм
         public function locker_change_nickname(Request $request){
@@ -507,6 +595,30 @@ class MainController extends Controller
         return view('account.account_sales',[
             'id' => $id,
             'account_sales' => $sales,
+        ]);
+    }
+
+    //Продажи (Все)
+    public function account_sales_all($id){
+
+        return view('account.account_sales.account_sales_all',[
+            'id' => $id,
+        ]);
+    }
+
+    //Продажи (Ожидает подтверждения)
+    public function account_sales_unconfirmed($id){
+
+        return view('account.account_sales.account_sales_unconfirmed',[
+            'id' => $id,
+        ]);
+    }
+    //Продажи (Завершены)
+    public function account_sales_completed($id){
+        
+
+        return view('account.account_sales.account_sales_completed',[
+            'id' => $id,
         ]);
     }
 

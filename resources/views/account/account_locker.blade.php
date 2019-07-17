@@ -1,11 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <ul class="list-top-menu">
+      <li class="active"><a href="{{ url('/account/' . $id . '/locker') }}">Мой шкаф</a></li>
+      <li><a href="{{ url('/account/' . $id . '/locker/active_links') }}">Активные ссылки</a></li>
+      <li><a href="{{ url('/account/' . $id . '/locker/drafts') }}">Черновики</a></li>
+      <li><a href="{{ url('/account/' . $id . '/locker/deleted') }}">Удалены</a></li>
+      <li><a href="{{ url('/account/' . $id . '/locker/sold_out') }}">Продано</a></li>
+    </ul>
+  </div>
 <div style="background-image: url({{ Storage::url($user_settings->locker_background) }});" class="menu-bottom">
   <div class="container">
-    <div class="edit">
+
+      <!-- <div class="info-user">
+        <div class="block-photo-user"><img src="assets/images/2.png" alt=""><a href="#"><i class="fas fa-camera"></i></a></div>
+        <div class="block-name-user">
+          <h3 class="name-user bold-700">{{ Auth::user()->name }} <a href="#"><i data-toggle="modal" data-target="#editNicknameModal" class="fas fa-pencil-alt"></i></a></h3>
+          <h6>reference site about Lorem ipsum</h6>
+          <span>{{ $user_settings->additional_info }}</span>
+        </div>
+      </div> -->
+
+    <!-- <div class="edit">
       <a href="#"><i data-toggle="modal" data-target="#editBackgroundModal" class="fas fa-pencil-alt"></i></a>
-    </div>
+    </div> -->
     <div class="info-user">
     <a href="#" data-toggle="modal" data-target="#editProfilePictureModal"><div class="block-photo-user"><img style="border-radius: 50%; position: absolute;"src="{{ Storage::url($user_settings->profile_picture) }}" alt=""><i class="fas fa-camera"></i></div></a>
       <div class="block-name-user">
@@ -14,30 +33,55 @@
         <span>{{ $user_settings->additional_info }}</span>
       </div>
     </div>
-    <div class="info-tab">
+    <!-- <div class="info-tab">
       <ul>
         <!-- Вывод кол-ва вещей -->
-        <li><span class="quantity-items bold-700">{{ $items }}</span><h4>Вещей</h4></li>
+        <!-- <li><span class="quantity-items bold-700">{{ $items }}</span><h4>Вещей</h4></li> -->
         <!-- <li><span class="quantity-followers bold-700">200</span><h4>Followers</h4></li>
         <li><span class="quantity-following bold-700">462</span><h4>Following</h4></li> -->
       </ul>
-    </div>
+    </div> 
   </div>
 </div>
 <div class="main cupboard">
   <div class="container">
-    <h2 class="title-items bold-700">Мой шкаф</h2>
+    <!-- <h2 class="title-items bold-700">Мой шкаф</h2> -->
     <ul class="list-item">
 
             <!-- Проверка, есть ли продажи?  -->
             @if ($account_locker->isNotEmpty())
                 @foreach ($account_locker as $locker)
+                <li class="block-item">
+                <div class="item">
+                  <div class="img-item">
+                    <div class="block-edit">
+                      <i class="fas fa-chevron-down button-edit-product"></i>
+                      <ul class="edit-item-product">
+                        <li><a href="#"><i class="fas fa-pen"> </i>  Редактировать</a></li>
+                        <li><a href="{{ url('/account/' . $locker->user_id . '/locker/delete_item/'.$locker->id) }}"><i class="fas fa-times"> </i>  Удалить</a></li>
+                      </ul>
+                    </div>
 
-                <li class="item">
+                    <img src="{{ asset('images/3.jpg') }}" alt="">
+                  </div>
+                  <h4 class="name-item"><a href="#">{{ $locker->description }}</a></h4>
+                  <span class="brand">бренд</span> <span class="size">/ размер</span>
+                  <span class="data-product"><span>18.05.19 </span><span>Дата публикации</span></span>
+                  <div class="block-price-item">
+                    <a href="#" class="menu-item"><i class="icon icon-output"></i></a>
+                    <div class="">
+                      <span class="new-price"> {{ $locker->price }}$ </span>
+                      <span class="old-price"> 200.00$ </span>
+                    </div>
+                  </div>
+                </div>
+                </li>
+
+                <!-- <li class="item">
                   <div class="img-item"><img src="{{ asset('images/3.jpg') }}" alt=""></div>
                   <h4 class="text-item"><a href="#">{{ $locker->description }}</a></h4>
                   <h5 class="item-price bold-700">{{ $locker->price }}$</h5>
-                <li>
+                <li> -->
 
                 @endforeach
             @else

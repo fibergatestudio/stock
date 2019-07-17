@@ -2,13 +2,14 @@
   border-radius: 0;
 }
 
-.form-control {
+.form-control, select.form-control {
   border-radius: 0 !important;
 }
 
 .form-title {
   border-bottom: 1px solid #222222;
   padding: 5px 0;
+  font-size: 25px;
 }
 
 .jumbotron {

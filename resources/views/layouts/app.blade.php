@@ -22,6 +22,9 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/icons.scss') }}" rel="stylesheet">
+    <link href="{{ asset('css/menu-admin.scss') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/main.css') }}">
 </head>
 <body>
 <div class="menu bg-dark">
@@ -31,6 +34,17 @@
                 <form class="form-inline">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> <i class="fas fa-search"></i>
                 </form>
+                @guest 
+
+@else
+
+<div class="right-menu">
+    <a href="{{ url('account/' . $id . '/messages') }}"><i class="far fa-envelope"></i></a>
+    <!-- <a href="{{ url('account/' . $id . '/messages') }}"><i class="fas fa-bell"></i></a> -->
+    <a href="{{ url('account/' . $id . '/favorites') }}"><i class="fas fa-heart"></i></a>
+    <a href="{{ url('account/' . $id . '/cart') }}"><i class="fas fa-shopping-basket"></i></a>
+</div>
+@endguest
                 <div class="user">
 
                     @guest 
@@ -69,7 +83,7 @@
                             <li class="col-md-6"><a href="{{ url('account/' . $id . '/invites') }}" class="menu-item"><i class="icon icon-support"></i>Пригласить друзей</a></li>
                             <li class="col-md-6"><a href="{{ url('account/' . $id . '/purchases') }}" class="menu-item"><i class="icon icon-shopping-basket"></i>Мои покупки</a></li>
                             <li class="col-md-6"><a href="{{ url('account/' . $id . '/settings') }}" class="menu-item"><i class="icon icon-settings"></i>Настройки</a></li>
-                            <li class="col-md-6"><a href="{{ url('account/' . $id . '/wallet') }}" class="menu-item"><i class="icon icon-bag"></i>Мой кошелек</a></li>
+                            <!-- <li class="col-md-6"><a href="{{ url('account/' . $id . '/wallet') }}" class="menu-item"><i class="icon icon-bag"></i>Мой кошелек</a></li> -->
                             <li class="col-md-6">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="menu-item">
                                 <i class="icon icon-output"></i>Выход
@@ -83,17 +97,6 @@
                     </div>
 
                 </div>
-                @guest 
-
-                @else
-
-                <div class="right-menu">
-                    <a href="{{ url('account/' . $id . '/messages') }}"><i class="far fa-envelope"></i></a>
-                    <a href="{{ url('account/' . $id . '/messages') }}"><i class="fas fa-bell"></i></a>
-                    <a href="{{ url('account/' . $id . '/favorites') }}"><i class="fas fa-heart"></i></a>
-                    <a href="{{ url('account/' . $id . '/cart') }}"><i class="fas fa-shopping-basket"></i></a>
-                </div>
-                @endguest
             </div>
         </div>
     </div>
@@ -292,53 +295,68 @@
         </div>
     </div>
 
-<footer>
+    <footer class="footer">
     <div class="container footer-menu">
-        <ul class="menu-1">
-            <li><a href="#">Refenence</a></li>
-            <li><a href="#">Site</a></li>
-            <li><a href="#">About Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Giving information</a></li>
-            <li><a href="#">Jnits origins</a></li>
-            <li><a href="#">sA well as a random lipsum</a></li>
-            <li><a href="#">Generator</a></li>
-        </ul>
-        <ul class="menu-2">
-            <li><a href="#">Refenence</a></li>
-            <li><a href="#">Site</a></li>
-            <li><a href="#">About Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Giving information</a></li>
-            <li><a href="#">Jnits origins</a></li>
-            <li><a href="#">sA well as a random lipsum</a></li>
-            <li><a href="#">Generator</a></li>
-        </ul>
-        <ul class="menu-3">
-            <li><a href="#">Refenence</a></li>
-            <li><a href="#">Site</a></li>
-            <li><a href="#">About Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Giving information</a></li>
-            <li><a href="#">Jnits origins</a></li>
-            <li><a href="#">sA well as a random lipsum</a></li>
-            <li><a href="#">Generator</a></li>
-        </ul>
-        <ul class="menu-4">
-            <li><a href="#">Refenence</a></li>
-            <li><a href="#">Site</a></li>
-            <li><a href="#">About Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Giving information</a></li>
-            <li><a href="#">Jnits origins</a></li>
-            <li><a href="#">sA well as a random lipsum</a></li>
-            <li><a href="#">Generator</a></li>
-        </ul>
+        <div class="menu-1">
+            <h1 class="logo-footer"><a href="#">LOGOTYPE</a></h1>
+            <ul class="list-social-icon">
+                <li><a href="#" class="fab fa-twitter"></a></li>
+                <li><a href="#" class="fab fa-twitter"></a></li>
+                <li><a href="#" class="fab fa-instagram"></a></li>
+                <li><a href="#" class="fab fa-facebook-square"></a></li>
+            </ul>
+        </div>
+        <div class="menu-2">
+            <h2 class="title-footer">Категории</h2>
+            <ul>
+                <li><a href="#"> Женское</a></li>
+                <li><a href="#">Мужское</a></li>
+                <li><a href="#">Детское</a></li>
+                <li><a href="#">О нас</a></li>
+            </ul>
+        </div>
+
+        <div class="menu-3">
+            <h2 class="title-footer">Популярные бренды</h2>
+            <ul>
+                <li><a href="#">Gucci</a></li>
+                <li><a href="#"> Louis</a></li>
+                <li><a href="#">Vuitton</a></li>
+                <li><a href="#">Burberry</a></li>
+                <li><a href="#"> Chanel</a></li>
+                <li><a href="#">Versace</a></li>
+            </ul>
+        </div>
+        <div class="menu-4">
+            <h2 class="title-footer">Компания</h2>
+            <ul>
+                <li><a href="#"> О нас</a></li>
+                <li><a href="#"> Вопросы и ответы</a></li>
+                <li><a href="#">Продай с нами</a></li>
+                <li><a href="#">Как это устроено</a></li>
+                <li><a href="#">Пресса</a></li>
+            </ul>
+        </div>
+        <div class="menu-5">
+            <h2 class="title-footer">iOS & Android</h2>
+            <ul>
+                <li><a href="#">Покупай и продавай на Android</a></li>
+                <li><a href="#">Покупай и продавай на IOS</a></li>
+            </ul>
+        </div>
+        <div class="menu-6">
+            <img src="{{ asset('images/google-play-footer.png') }}" alt="">
+            <img src="{{ asset('images/app-store-footer.png') }}" alt="">
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2019 poshmark <span>Privacy Terms Copyright polisy</span> Contact</span>
     </div>
 </footer>
 </html>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="{{ asset('build/main.js') }}"></script>
 <script type="text/javascript">
     
     /**

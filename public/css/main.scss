@@ -1,0 +1,66 @@
+$images: "../images/";
+$font-1: Segoe UI,regular;
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1200px
+) !default;
+
+
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-select/sass/bootstrap-select";
+@import "reset.css";
+@import "icons";
+@import "form";
+@import "menu-admin";
+
+@media( min-width: 1900px){
+  .container{
+    width: 1640px;
+  }
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.logo-footer {
+  a:hover {
+    color: #ffffff;
+  }
+}
+.bold-700{
+  font-weight: 700;
+}
+.edit,
+.info-user{
+  a{
+    .fas{
+      color: #000000;
+    }
+  }
+}
+.main{
+  .title-items{
+    font-size: 30px;
+  }
+}
+.cupboard{
+  .title-items{
+    border-bottom: 1px solid  #E5DEDE;
+    padding-bottom: 20px;
+  }
+}
+.basket {
+  .item-2 {
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+}
+.badge {
+  top: -5px;
+  border-radius: 50%;
+}
+

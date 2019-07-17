@@ -71,6 +71,24 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Шкаф (Мой Шкаф)
     Route::get('/account/{id}/locker', 'MainController@account_locker')->middleware('auth');
+        //Шкаф (Добавить Товар : Страница)
+        Route::get('/account/{id}/locker/add_item', 'MainController@account_locker_add_item_index')->middleware('auth');
+            //Шкаф (Добавить товар : GET) (Not Rdy)
+            Route::get('/account/{id}/locker/add_item_post', 'MainController@account_locker_add_item')->middleware('auth');
+
+        //Шкаф (Удалить Товар : GET)
+        Route::get('/account/{id}/locker/delete_item/{item_id}', 'MainController@account_locker_delete_item')->middleware('auth');
+
+        //Шкаф (Активные ссылки)
+        Route::get('/account/{id}/locker/active_links', 'MainController@account_locker_active_links')->middleware('auth');
+        //Шкаф (Черновики)
+        Route::get('/account/{id}/locker/drafts', 'MainController@account_locker_drafts')->middleware('auth');
+        //Шкаф (Удалены)
+        Route::get('/account/{id}/locker/deleted', 'MainController@account_locker_deleted')->middleware('auth');
+        //Шкаф (Продано)
+        Route::get('/account/{id}/locker/sold_out', 'MainController@account_locker_sold_out')->middleware('auth');
+
+
         //Шкаф (Изменить Никнейм)
         Route::post('/account/{id}/locker/change_nickname', 'MainController@locker_change_nickname')->middleware('auth');
         //Шкаф (Изменить Бэкграунд)
@@ -80,6 +98,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     //Продажи (Мои Продажи)
     Route::get('/account/{id}/sales', 'MainController@account_sales')->middleware('auth');
+        //Продажи (Все продажи)
+        Route::get('/account/{id}/sales/all', 'MainController@account_sales_all')->middleware('auth');
+        //Продажи (Ожидает подтверждения)
+        Route::get('/account/{id}/sales/unconfirmed', 'MainController@account_sales_unconfirmed')->middleware('auth');
+        //Продажи (Завершены)
+        Route::get('/account/{id}/sales/completed', 'MainController@account_sales_completed')->middleware('auth');
     //Покупки (Мои Покупки)
     Route::get('/account/{id}/purchases', 'MainController@account_purchases')->middleware('auth');
     //Кошелек (Мой Кошелек)

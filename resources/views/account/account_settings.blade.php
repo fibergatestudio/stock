@@ -29,6 +29,12 @@
                     <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Настройки аккаунта</a>
                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Настройки шкафа</a>
                     <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Уведомления</a>
+                    <a class="nav-link" id="v-pills-book-tab" data-toggle="pill" href="#v-pills-book" role="tab" aria-controls="v-pills-book" aria-selected="false">Адресная книга</a>
+                    <a class="nav-link" id="v-pills-account-tab" data-toggle="pill" href="#v-pills-account" role="tab" aria-controls="v-pills-card" aria-selected="false">Информация для выставления счетов</a>
+                    <a class="nav-link" id="v-pills-account-tab-2" data-toggle="pill" href="#v-pills-account-2" role="tab" aria-controls="v-pills-messages" aria-selected="false">Управление выплатами</a>
+                    <a class="nav-link" id="v-pills-account-tab-3" data-toggle="pill" href="#v-pills-account-3" role="tab" aria-controls="v-pills-messages" aria-selected="false">Настройка выплат</a>
+                    <a class="nav-link" id="v-pills-present-tab" data-toggle="pill" href="#v-pills-present" role="tab" aria-controls="v-pills-present" aria-selected="false">Подарочные карты и купоны</a>
+                    <a class="nav-link"  href="{{ url('account/' . $id .'/invites') }}" >Пригласить друзей <i class="fas fa-chevron-right"></i></a>
                 </div>
             </div>
             <div class="col-9">
@@ -223,10 +229,132 @@
                             </div>
                         </form>
                     </div>
+                    <div class="tab-pane fade" id="v-pills-book" role="tabpanel" aria-labelledby="v-pills-book-tab">
+                        <div class="block-book">
+                            <p>Ваш адрес продажи</p>
+                            <p>Здесь, мы отправляем ваш комплект для доставки, когда вы продаете товар.</p>
+                            <p class="add-address"><span>Добавить адрес доставки</span> <a href="#" class="fas fa-plus"></a></p>
+                        </div>
+                        <h6>Все адреса</h6>
+                        <div class="block-book-2">
+                            <p class="add-address"><span>Добавить адрес</span> <a href="#" class="fas fa-plus"></a></p>
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-account" role="tabpanel" aria-labelledby="v-pills-account-tab">
+                        <form action="{{ url('/account/' . $id . '/wallet/apply_changes') }}" method="POST" class="row" enctype="multipart/form-data" class="col">
+                                @csrf
+                            <input type="hidden" name="user_id" value="{{ $id }}">
+                            <div class="form-group col-md-6">
+                                <h2  class="form-title">Информация о кредитной карте</h2>
+                                <label for="name">ФИО</label>
+                                <input class="form-control" id="name" name="card_name" value="{{ $account_wallet->card_name }}">
+                                <small id="emailHelp1" class="form-text text-muted">Ваше имя как указано на кредитной карте</small>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <h2  class="form-title">Платежная информация</h2>
+                                <label for="example">Адрес</label>
+                                <input  class="form-control" id="example" name="card_address" value="{{ $account_wallet->card_address }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="name">Номер карты</label>
+                                <input type="text" class="form-control" id="card" name="card_number" value="{{ $account_wallet->card_number }}">
+                                <small id="emailHelp3" class="form-text text-muted">Мы принимаем карты VISA, American Express и Discover. Мы никогда не сохраняем информацию о вашей кредитной карте.</small>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="city">Город</label>
+                                <input class="form-control" id="city" name="card_city" value="{{ $account_wallet->card_city }}">
+                                <label for="country">Поштовый индекс</label>
+                                <select class="form-control" id="country">
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="data">Срок действия</label>
+                                <input type="month" class="form-control" id="data" placeholder="ММ/ГГ" name="card_date" value="{{ $account_wallet->card_date }}">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="cvv">CVV</label>
+                                <input class="form-control" id="cvv" placeholder="***" name="card_cvv" value="{{ $account_wallet->card_cvv }}">
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="1">Страна</label>
+                                <select class="form-control" id="country" name="card_country">
+                                    <option>TEST</option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="color-btn btn btn-secondary">Сохранить</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-account-2" role="tabpanel" aria-labelledby="v-pills-account-2-tab">
+                        <ul class="payment">
+                            <li>
+                                <div class="block">
+                                    <h3><span>Кредит сайта</span></h3>
+                                    <h4>{{ $account_wallet->credit_money }} $</h4>
+                                    <p>Кредит сайта может быть использован для покупок на сайте</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <h3><span>Имеется в наличии</span></h3>
+                                    <h4>{{ $account_wallet->available_money }} $</h4>
+                                    <p>Может быть использован немедленно для совершения покупки на сайте или вывода средств.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <h3><span>В ожидании доходов</span></h3>
+                                    <h4>{{ $account_wallet->waiting_money }}  $</h4>
+                                    <p>Смотрите историю ниже для получения подробной информации о наличии средств.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="block">
+                                    <h3><span>Вывод средств</span></h3>
+                                    <button class="btn btn-secondary color-btn">вывод</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-account-3" role="tabpanel" aria-labelledby="v-pills-account-3-tab">
+                        <button class="btn btn-secondary color-btn btn-add-pay">Добавить метод выплат</button>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-present" role="tabpanel" aria-labelledby="v-pills-present-tab">
+                        <div class="present row">
+                            <form class="col-md-6">
+                                <div class="form-group">
+                                    <p>Готовы на свободные деньги?</p>
+                                    <small class="form-text text-muted">Введите код</small>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <button class="color-btn btn-secondary btn">Выкупить</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<!-- Новые настройки -->
+
 @endsection
